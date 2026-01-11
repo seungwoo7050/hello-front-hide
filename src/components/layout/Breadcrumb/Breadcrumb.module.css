@@ -1,0 +1,72 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-3) 0;
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-sm);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.breadcrumb::-webkit-scrollbar {
+  display: none;
+}
+
+.breadcrumbList {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.breadcrumbItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.breadcrumbLink {
+  color: var(--color-gray-600);
+  text-decoration: none;
+  transition: var(--transition-fast);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-primary);
+  background-color: var(--color-gray-100);
+}
+
+.breadcrumbLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.breadcrumbCurrent {
+  color: var(--color-gray-900);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+.breadcrumbSeparator {
+  color: var(--color-gray-400);
+  user-select: none;
+}
+
+.breadcrumbIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-500);
+}
+
+/* 홈 아이콘 */
+.homeIcon {
+  width: 16px;
+  height: 16px;
+}

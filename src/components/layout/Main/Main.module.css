@@ -1,0 +1,45 @@
+.main {
+  min-height: 100vh;
+  padding-top: var(--header-height);
+  transition: var(--transition-normal);
+}
+
+.mainContent {
+  padding: var(--spacing-4);
+  max-width: var(--container-wide);
+  margin: 0 auto;
+}
+
+.mainFullWidth {
+  max-width: none;
+}
+
+.mainWithSidebar {
+  /* 사이드바가 있는 경우 */
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .main {
+    padding-top: var(--header-height-desktop);
+  }
+
+  .mainContent {
+    padding: var(--spacing-6);
+  }
+
+  .mainWithSidebar {
+    margin-left: var(--sidebar-width);
+  }
+
+  .mainWithCollapsedSidebar {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .mainContent {
+    padding: var(--spacing-8);
+  }
+}

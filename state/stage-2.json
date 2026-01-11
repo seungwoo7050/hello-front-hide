@@ -1,0 +1,45 @@
+{
+  "stage": 2,
+  "name": "라우팅 + 반응형 레이아웃",
+  "status": "completed",
+  "completedAt": "2025-06-29T20:55:00Z",
+  "qualityGates": {
+    "lint": "pass",
+    "test": "pass",
+    "build": "pass"
+  },
+  "metrics": {
+    "totalTests": 109,
+    "passedTests": 109,
+    "failedTests": 0,
+    "testFiles": 15
+  },
+  "dependencies": {
+    "added": ["react-router-dom@^7.12.0"],
+    "removed": []
+  },
+  "artifacts": {
+    "components": [
+      "Header",
+      "Sidebar",
+      "Main",
+      "Footer",
+      "Breadcrumb",
+      "AppLayout"
+    ],
+    "pages": ["Home", "About", "NotFound"],
+    "styles": ["breakpoints.css"],
+    "router": ["src/router/index.tsx"]
+  },
+  "routes": [
+    { "path": "/", "component": "Home" },
+    { "path": "/playground", "component": "Playground" },
+    { "path": "/about", "component": "About" },
+    { "path": "*", "component": "NotFound" }
+  ],
+  "breakpoints": {
+    "mobile": "0-767px",
+    "tablet": "768-1023px",
+    "desktop": "1024px+"
+  }
+}

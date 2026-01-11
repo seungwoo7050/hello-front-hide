@@ -1,0 +1,96 @@
+/**
+ * 반응형 브레이크포인트 시스템
+ * Mobile-first 접근 방식
+ * 
+ * 브레이크포인트:
+ * - mobile: 0 - 767px (기본)
+ * - tablet: 768px - 1023px
+ * - desktop: 1024px+
+ */
+
+:root {
+  /* Breakpoint 값 (참조용, CSS에서 사용 불가) */
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+
+  /* 컨테이너 최대 너비 */
+  --container-mobile: 100%;
+  --container-tablet: 720px;
+  --container-desktop: 960px;
+  --container-wide: 1200px;
+
+  /* 사이드바 너비 */
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 64px;
+
+  /* 헤더 높이 */
+  --header-height: 56px;
+  --header-height-desktop: 64px;
+
+  /* 네비게이션 */
+  --nav-height-mobile: 56px;
+}
+
+/* 미디어 쿼리 커스텀 프로퍼티 (CSS Variables는 media query에서 사용 불가하므로 참조용) */
+/* 
+  사용 예시:
+  
+  .element {
+    // Mobile first (기본 스타일)
+    padding: 16px;
+  }
+  
+  @media (min-width: 768px) {
+    .element {
+      // Tablet
+      padding: 24px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .element {
+      // Desktop
+      padding: 32px;
+    }
+  }
+*/
+
+/* 유틸리티 클래스 - 반응형 표시/숨김 */
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hide-tablet {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+/* 모바일에서만 표시 */
+@media (min-width: 768px) {
+  .show-mobile-only {
+    display: none !important;
+  }
+}
+
+/* 태블릿 이상에서만 표시 */
+@media (max-width: 767px) {
+  .show-tablet-up {
+    display: none !important;
+  }
+}
+
+/* 데스크탑에서만 표시 */
+@media (max-width: 1023px) {
+  .show-desktop-only {
+    display: none !important;
+  }
+}

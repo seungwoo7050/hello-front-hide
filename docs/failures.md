@@ -36,3 +36,21 @@
 - **오류 메시지**: "Cannot call impure function during render"
 - **해결**: `useId()` 훅으로 안정적인 고유 ID 생성
 - **교훈**: React 18+에서는 컴포넌트 ID 생성에 useId 사용
+
+---
+
+## Stage 2
+
+### 5. getByRole 다중 요소 매칭 오류
+- **상황**: `getByRole('heading', { name: /Hello Front/i })` 테스트 실패
+- **원인**: h1(히어로 제목)과 h3(푸터 제목) 두 곳에서 "Hello Front" 텍스트 사용
+- **오류 메시지**: "Found multiple elements with the role 'heading' and name"
+- **해결**: `level` 옵션 추가로 특정 제목 레벨 지정 `{ level: 1, name: /Hello Front/i }`
+- **교훈**: 역할 기반 쿼리 시 더 구체적인 조건을 사용하여 단일 요소 매칭
+
+### 6. TypeScript unused import 에러
+- **상황**: 빌드 실패 - `vi` import는 선언되었으나 사용되지 않음
+- **원인**: 테스트 파일에서 mock 함수 없이 vi를 import
+- **오류 메시지**: "TS6133: 'vi' is declared but its value is never read"
+- **해결**: 사용하지 않는 import 제거
+- **교훈**: TypeScript strict 모드에서 미사용 import도 빌드 에러 발생

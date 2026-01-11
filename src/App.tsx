@@ -1,7 +1,7 @@
-import { Playground } from './pages/Playground'
+import { AppRouter } from './router'
 
 function App() {
-  return <Playground />
+  return <AppRouter />
 }
 
 export default App

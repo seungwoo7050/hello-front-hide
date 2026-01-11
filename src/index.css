@@ -5,6 +5,7 @@
 
 /* 디자인 토큰 import */
 @import './styles/tokens.css';
+@import './styles/breakpoints.css';
 
 *,
 *::before,
