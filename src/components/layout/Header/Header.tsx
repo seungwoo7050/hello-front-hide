@@ -13,6 +13,7 @@ interface HeaderProps {
 const navItems = [
   { path: '/', label: '홈' },
   { path: '/playground', label: 'Playground' },
+  { path: '/form-demo', label: 'Form' },
   { path: '/about', label: 'About' },
 ];
 

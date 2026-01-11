@@ -1,0 +1,46 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.formGroupRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.formActions {
+  display: flex;
+  gap: var(--spacing-3);
+  padding-top: var(--spacing-4);
+}
+
+.formActionsEnd {
+  justify-content: flex-end;
+}
+
+.formActionsCenter {
+  justify-content: center;
+}
+
+.formActionsSpaceBetween {
+  justify-content: space-between;
+}
+
+/* 태블릿 이상 */
+@media (min-width: 768px) {
+  .formGroupRow {
+    flex-direction: row;
+  }
+
+  .formGroupRow > * {
+    flex: 1;
+  }
+}

@@ -1,7 +1,12 @@
 import { AppRouter } from './router'
+import { ToastProvider } from './components/ui'
 
 function App() {
-  return <AppRouter />
+  return (
+    <ToastProvider position="top-right" maxToasts={5}>
+      <AppRouter />
+    </ToastProvider>
+  )
 }
 
 export default App
