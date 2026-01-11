@@ -1,0 +1,26 @@
+{
+  "stageId": 0,
+  "stageName": "프로젝트 초기화",
+  "status": "completed",
+  "timestamp": "2026-01-11T20:12:00.000Z",
+  "commitHash": "pending",
+  "artifacts": {
+    "docs": [
+      "docs/stage-0.md",
+      "docs/failures.md",
+      "docs/changes/stage-0.md"
+    ],
+    "tests": [
+      "src/App.test.tsx"
+    ],
+    "components": [
+      "src/App.tsx"
+    ]
+  },
+  "qualityGates": {
+    "lint": "PASS",
+    "test": "PASS (5 tests)",
+    "build": "PASS"
+  },
+  "notes": "Vite + React + TypeScript 프로젝트 초기 설정 완료. CSS Modules 및 디자인 토큰 시스템 구축."
+}
