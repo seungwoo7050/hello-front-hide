@@ -16,10 +16,7 @@ export const notesKeys = {
 export function useNotesQuery(params?: NotesQueryParams) {
   return useQuery({
     queryKey: notesKeys.list(params),
-    queryFn: async () => {
-      const response = await notesApi.getAll(params);
-      return response.data;
-    },
+    queryFn: () => notesApi.getAll(params),
   });
 }
 
@@ -27,10 +24,7 @@ export function useNotesQuery(params?: NotesQueryParams) {
 export function useNoteQuery(id: string) {
   return useQuery({
     queryKey: notesKeys.detail(id),
-    queryFn: async () => {
-      const response = await notesApi.getById(id);
-      return response.data;
-    },
+    queryFn: () => notesApi.getById(id),
     enabled: !!id,
   });
 }
@@ -42,8 +36,7 @@ export function useCreateNote() {
   return useMutation({
     mutationFn: async (values: NoteFormValues) => {
       const request = formValuesToCreateRequest(values);
-      const response = await notesApi.create(request);
-      return response.data;
+      return notesApi.create(request);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: notesKeys.lists() });
@@ -58,8 +51,7 @@ export function useUpdateNote() {
   return useMutation({
     mutationFn: async ({ id, values }: { id: string; values: Partial<NoteFormValues> }) => {
       const request = formValuesToUpdateRequest(values);
-      const response = await notesApi.update(id, request);
-      return response.data;
+      return notesApi.update(id, request);
     },
     onMutate: async ({ id, values }) => {
       // 낙관적 업데이트
@@ -109,10 +101,7 @@ export function useDeleteNote() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => {
-      const response = await notesApi.delete(id);
-      return response.data;
-    },
+    mutationFn: (id: string) => notesApi.delete(id),
     onMutate: async (id) => {
       // 낙관적 업데이트
       await queryClient.cancelQueries({ queryKey: notesKeys.lists() });
@@ -143,10 +132,7 @@ export function useTogglePin() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => {
-      const response = await notesApi.togglePin(id);
-      return response.data;
-    },
+    mutationFn: (id: string) => notesApi.togglePin(id),
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey: notesKeys.lists() });
       

@@ -118,10 +118,7 @@ export const notesHandlers = [
     const pinned = result.filter((n) => n.isPinned);
     const unpinned = result.filter((n) => !n.isPinned);
     
-    return HttpResponse.json({
-      data: [...pinned, ...unpinned],
-      success: true,
-    });
+    return HttpResponse.json([...pinned, ...unpinned]);
   }),
 
   // 단일 노트 조회
@@ -137,10 +134,7 @@ export const notesHandlers = [
       );
     }
     
-    return HttpResponse.json({
-      data: note,
-      success: true,
-    });
+    return HttpResponse.json(note);
   }),
 
   // 노트 생성
@@ -170,11 +164,7 @@ export const notesHandlers = [
     
     notes = [newNote, ...notes];
     
-    return HttpResponse.json({
-      data: newNote,
-      success: true,
-      message: '노트가 생성되었습니다',
-    });
+    return HttpResponse.json(newNote, { status: 201 });
   }),
 
   // 노트 수정
@@ -198,11 +188,7 @@ export const notesHandlers = [
       updatedAt: new Date().toISOString(),
     };
     
-    return HttpResponse.json({
-      data: notes[index],
-      success: true,
-      message: '노트가 수정되었습니다',
-    });
+    return HttpResponse.json(notes[index]);
   }),
 
   // 노트 삭제
@@ -220,11 +206,7 @@ export const notesHandlers = [
     
     notes = notes.filter((n) => n.id !== params.id);
     
-    return HttpResponse.json({
-      data: { id: params.id },
-      success: true,
-      message: '노트가 삭제되었습니다',
-    });
+    return HttpResponse.json({ id: params.id });
   }),
 
   // 핀 토글
@@ -246,10 +228,7 @@ export const notesHandlers = [
       updatedAt: new Date().toISOString(),
     };
     
-    return HttpResponse.json({
-      data: notes[index],
-      success: true,
-    });
+    return HttpResponse.json(notes[index]);
   }),
 ];
 

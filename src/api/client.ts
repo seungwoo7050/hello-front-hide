@@ -1,3 +1,5 @@
+import { getAccessToken } from '../features/auth/tokenStorage';
+
 // API 응답 타입
 export interface ApiResponse<T> {
   data: T;
@@ -27,12 +29,14 @@ export const API_DELAY = 500; // 개발 환경에서 네트워크 지연 시뮬�
 export async function fetchApi<T>(
   endpoint: string,
   options?: RequestInit
-): Promise<ApiResponse<T>> {
+): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
+  const token = getAccessToken();
   
   const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
       ...options?.headers,
     },
     ...options,

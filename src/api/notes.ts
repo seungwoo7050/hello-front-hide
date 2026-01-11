@@ -1,5 +1,4 @@
 import { api } from './client';
-import type { ApiResponse } from './client';
 import type { Note, NoteFormValues } from '../features/notes/types';
 
 // 노트 API 타입
@@ -49,19 +48,19 @@ export const notesApi = {
   getById: (id: string) => api.get<Note>(`/notes/${id}`),
 
   // 노트 생성
-  create: (data: CreateNoteRequest): Promise<ApiResponse<Note>> =>
+  create: (data: CreateNoteRequest): Promise<Note> =>
     api.post<Note>('/notes', data),
 
   // 노트 수정
-  update: (id: string, data: UpdateNoteRequest): Promise<ApiResponse<Note>> =>
+  update: (id: string, data: UpdateNoteRequest): Promise<Note> =>
     api.patch<Note>(`/notes/${id}`, data),
 
   // 노트 삭제
-  delete: (id: string): Promise<ApiResponse<{ id: string }>> =>
+  delete: (id: string): Promise<{ id: string }> =>
     api.delete<{ id: string }>(`/notes/${id}`),
 
   // 핀 토글
-  togglePin: (id: string): Promise<ApiResponse<Note>> =>
+  togglePin: (id: string): Promise<Note> =>
     api.patch<Note>(`/notes/${id}/pin`, {}),
 };
 

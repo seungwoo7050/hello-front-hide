@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import { useNotesQuery, useCreateNote, useDeleteNote } from './useNotesQuery';
 import { resetNotes } from '../../mocks/handlers/notes';
-import type { NoteFormValues } from './types';
+import type { Note, NoteFormValues } from './types';
 
 function createTestQueryClient() {
   return new QueryClient({
@@ -65,11 +65,11 @@ describe('useNotesQuery', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(result.current.data).toBeDefined();
-      result.current.data!.forEach((note) => {
+      result.current.data!.forEach((note: Note) => {
         const matchesSearch =
           note.title.toLowerCase().includes('react') ||
           note.content.toLowerCase().includes('react') ||
-          note.tags.some((t) => t.toLowerCase().includes('react'));
+          note.tags.some((t: string) => t.toLowerCase().includes('react'));
         expect(matchesSearch).toBe(true);
       });
     });
@@ -105,7 +105,11 @@ describe('useNotesQuery', () => {
       const { result: queryResult } = renderHook(() => useNotesQuery(), { wrapper });
       const { result: mutationResult } = renderHook(() => useDeleteNote(), { wrapper });
 
-      await waitFor(() => expect(queryResult.current.isSuccess).toBe(true));
+      await waitFor(() => {
+        expect(queryResult.current.isSuccess).toBe(true);
+        expect(queryResult.current.data).toBeDefined();
+        expect(queryResult.current.data!.length).toBeGreaterThan(0);
+      });
 
       const initialCount = queryResult.current.data!.length;
       const noteToDelete = queryResult.current.data![0];
@@ -119,7 +123,7 @@ describe('useNotesQuery', () => {
         return queryResult.current.data!.length < initialCount;
       });
 
-      expect(queryResult.current.data!.find((n) => n.id === noteToDelete.id)).toBeUndefined();
+      expect(queryResult.current.data!.find((n: Note) => n.id === noteToDelete.id)).toBeUndefined();
     });
   });
 });
