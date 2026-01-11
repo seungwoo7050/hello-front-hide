@@ -1,0 +1,68 @@
+{
+  "stage": 4,
+  "name": "노트 앱 CRUD",
+  "status": "completed",
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "tests": {
+    "total": 307,
+    "passed": 307,
+    "failed": 0,
+    "newInStage": 96
+  },
+  "build": {
+    "status": "success",
+    "outputSize": "343.50 kB"
+  },
+  "features": [
+    "노트 생성 (Create)",
+    "노트 조회 (Read)",
+    "노트 수정 (Update)",
+    "노트 삭제 (Delete)",
+    "텍스트 검색",
+    "카테고리 필터",
+    "태그 필터",
+    "정렬 (최신순, 오래된순, 제목순, 수정일순)",
+    "핀 고정",
+    "노트 색상",
+    "마스터-디테일 레이아웃"
+  ],
+  "files": {
+    "created": [
+      "src/features/notes/types.ts",
+      "src/features/notes/utils.ts",
+      "src/features/notes/utils.test.ts",
+      "src/features/notes/useNotes.ts",
+      "src/features/notes/useNotes.test.ts",
+      "src/features/notes/sampleData.ts",
+      "src/features/notes/index.ts",
+      "src/features/notes/components/NoteCard/NoteCard.tsx",
+      "src/features/notes/components/NoteCard/NoteCard.module.css",
+      "src/features/notes/components/NoteCard/NoteCard.test.tsx",
+      "src/features/notes/components/NoteCard/index.ts",
+      "src/features/notes/components/NoteEditor/NoteEditor.tsx",
+      "src/features/notes/components/NoteEditor/NoteEditor.module.css",
+      "src/features/notes/components/NoteEditor/NoteEditor.test.tsx",
+      "src/features/notes/components/NoteEditor/index.ts",
+      "src/features/notes/components/NoteList/NoteList.tsx",
+      "src/features/notes/components/NoteList/NoteList.module.css",
+      "src/features/notes/components/NoteList/NoteList.test.tsx",
+      "src/features/notes/components/NoteList/index.ts",
+      "src/pages/Notes/Notes.tsx",
+      "src/pages/Notes/Notes.module.css",
+      "src/pages/Notes/Notes.test.tsx",
+      "src/pages/Notes/index.ts"
+    ],
+    "modified": [
+      "src/App.tsx",
+      "src/components/layout/Header/Header.tsx",
+      "src/components/layout/Sidebar/Sidebar.tsx"
+    ]
+  },
+  "learningOutcomes": [
+    "CRUD 작업의 React 구현",
+    "복잡한 상태 관리 패턴",
+    "검색 및 필터링 로직",
+    "커스텀 훅으로 비즈니스 로직 분리",
+    "마스터-디테일 레이아웃 패턴"
+  ]
+}

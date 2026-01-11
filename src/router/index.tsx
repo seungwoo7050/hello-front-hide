@@ -4,6 +4,7 @@ import { Home } from '../pages/Home';
 import { Playground } from '../pages/Playground';
 import { About } from '../pages/About';
 import { FormDemo } from '../pages/FormDemo';
+import { Notes } from '../pages/Notes';
 import { NotFound } from '../pages/NotFound';
 
 const router = createBrowserRouter([
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: 'playground',
         element: <Playground />,
+      },
+      {
+        path: 'notes',
+        element: <Notes />,
       },
       {
         path: 'about',

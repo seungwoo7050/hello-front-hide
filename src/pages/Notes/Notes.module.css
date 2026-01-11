@@ -1,0 +1,90 @@
+.notesPage {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: var(--spacing-6);
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-2);
+}
+
+.description {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) 1fr;
+  gap: var(--spacing-6);
+  min-height: 0;
+}
+
+.listPanel {
+  min-height: 0;
+  max-height: calc(100vh - 250px);
+  overflow: hidden;
+}
+
+.editorPanel {
+  min-height: 0;
+  max-height: calc(100vh - 250px);
+  overflow: hidden;
+}
+
+/* 태블릿 */
+@media (max-width: 1023px) {
+  .content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  
+  .listPanel,
+  .editorPanel {
+    max-height: calc(50vh - 100px);
+  }
+}
+
+/* 모바일 */
+@media (max-width: 767px) {
+  .content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .listPanel {
+    max-height: calc(100vh - 200px);
+  }
+  
+  .editorPanel {
+    display: none;
+  }
+  
+  .editorPanel.visible {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    max-height: none;
+  }
+  
+  .header {
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .title {
+    font-size: var(--font-size-xl);
+  }
+}
