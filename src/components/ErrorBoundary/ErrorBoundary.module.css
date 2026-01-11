@@ -1,0 +1,56 @@
+.errorContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: var(--spacing-8);
+  background: var(--color-background);
+}
+
+.errorContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 400px;
+}
+
+.errorIcon {
+  color: var(--color-error-500);
+  margin-bottom: var(--spacing-4);
+}
+
+.errorTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.errorMessage {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-6) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.retryButton {
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: #fff;
+  background: var(--color-primary-600);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.retryButton:hover {
+  background: var(--color-primary-700);
+}
+
+.retryButton:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}

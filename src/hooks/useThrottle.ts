@@ -26,15 +26,25 @@ import { useState, useEffect, useRef } from 'react';
  */
 export function useThrottle<T>(value: T, limit: number): T {
   const [throttledValue, setThrottledValue] = useState<T>(value);
-  const lastRan = useRef<number>(Date.now());
+  const lastRanRef = useRef<number | null>(null);
 
   useEffect(() => {
+    // 초기화: 첫 실행 시 lastRan 설정
+    if (lastRanRef.current === null) {
+      lastRanRef.current = Date.now();
+    }
+
+    const lastRan = lastRanRef.current;
+    const elapsed = Date.now() - lastRan;
+    const remaining = Math.max(limit - elapsed, 0);
+
     const handler = setTimeout(() => {
-      if (Date.now() - lastRan.current >= limit) {
+      const now = Date.now();
+      if (lastRanRef.current !== null && now - lastRanRef.current >= limit) {
         setThrottledValue(value);
-        lastRan.current = Date.now();
+        lastRanRef.current = now;
       }
-    }, limit - (Date.now() - lastRan.current));
+    }, remaining);
 
     return () => {
       clearTimeout(handler);
