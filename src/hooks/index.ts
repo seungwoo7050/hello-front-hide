@@ -7,3 +7,5 @@ export type {
   FormErrors,
   TouchedFields,
 } from './useForm';
+
+export { useLocalStorage } from './useLocalStorage';

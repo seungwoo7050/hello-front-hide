@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
 import { Notes } from './Notes';
@@ -15,6 +15,14 @@ const renderWithProviders = (ui: React.ReactElement) => {
 };
 
 describe('Notes Page', () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+  });
+
+  afterEach(() => {
+    window.localStorage.clear();
+  });
+
   it('노트 목록과 에디터를 렌더링한다', () => {
     renderWithProviders(<Notes />);
     

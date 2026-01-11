@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useNotes } from '../../features/notes';
+import { usePersistedNotes } from '../../features/notes/usePersistedNotes';
 import { NoteList, NoteEditor } from '../../features/notes/components';
 import type { NoteFormValues } from '../../features/notes';
 import { useToast } from '../../components/ui';
@@ -24,7 +24,7 @@ export function Notes() {
     selectNote,
     setIsEditing,
     clearFilter,
-  } = useNotes();
+  } = usePersistedNotes();
 
   const { success, error: showError } = useToast();
 

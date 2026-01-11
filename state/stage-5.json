@@ -1,0 +1,48 @@
+{
+  "stage": 5,
+  "name": "로컬 영속성",
+  "status": "completed",
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "tests": {
+    "total": 334,
+    "passed": 334,
+    "failed": 0,
+    "newInStage": 27
+  },
+  "build": {
+    "status": "success",
+    "outputSize": "345.51 kB"
+  },
+  "features": [
+    "useLocalStorage 커스텀 훅",
+    "제네릭 타입 지원",
+    "함수형 업데이트",
+    "에러 핸들링",
+    "크로스 탭 동기화",
+    "데이터 버전 관리",
+    "마이그레이션 지원",
+    "데이터 내보내기/가져오기",
+    "전체 삭제 및 초기화"
+  ],
+  "files": {
+    "created": [
+      "src/hooks/useLocalStorage.ts",
+      "src/hooks/useLocalStorage.test.ts",
+      "src/features/notes/usePersistedNotes.ts",
+      "src/features/notes/usePersistedNotes.test.ts"
+    ],
+    "modified": [
+      "src/hooks/index.ts",
+      "src/features/notes/index.ts",
+      "src/pages/Notes/Notes.tsx",
+      "src/pages/Notes/Notes.test.tsx"
+    ]
+  },
+  "learningOutcomes": [
+    "localStorage API 활용",
+    "커스텀 훅으로 스토리지 추상화",
+    "JSON 직렬화/역직렬화",
+    "데이터 버전 관리 및 마이그레이션",
+    "크로스 탭 동기화 패턴"
+  ]
+}
