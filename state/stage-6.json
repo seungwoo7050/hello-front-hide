@@ -1,0 +1,66 @@
+{
+  "stage": 6,
+  "name": "API 통신",
+  "status": "completed",
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "tests": {
+    "total": 339,
+    "passed": 339,
+    "failed": 0,
+    "newInStage": 5
+  },
+  "build": {
+    "status": "success",
+    "outputSize": "369.97 kB"
+  },
+  "dependencies": {
+    "added": [
+      "@tanstack/react-query",
+      "msw"
+    ]
+  },
+  "features": [
+    "HTTP 클라이언트",
+    "RESTful API 설계",
+    "MSW API 모킹",
+    "TanStack Query Provider",
+    "Query Keys Factory",
+    "useNotesQuery 훅",
+    "useCreateNote 훅",
+    "useUpdateNote 훅 (낙관적 업데이트)",
+    "useDeleteNote 훅 (낙관적 업데이트)",
+    "useTogglePin 훅 (낙관적 업데이트)"
+  ],
+  "files": {
+    "created": [
+      "src/api/client.ts",
+      "src/api/notes.ts",
+      "src/api/index.ts",
+      "src/mocks/handlers/notes.ts",
+      "src/mocks/handlers/index.ts",
+      "src/mocks/browser.ts",
+      "src/mocks/server.ts",
+      "src/mocks/index.ts",
+      "src/providers/QueryProvider.tsx",
+      "src/providers/queryClient.ts",
+      "src/providers/index.ts",
+      "src/features/notes/useNotesQuery.ts",
+      "src/features/notes/useNotesQuery.test.tsx",
+      "public/mockServiceWorker.js"
+    ],
+    "modified": [
+      "src/main.tsx",
+      "src/App.tsx",
+      "src/test/setup.ts",
+      "src/features/notes/index.ts",
+      "package.json"
+    ]
+  },
+  "learningOutcomes": [
+    "RESTful API 설계",
+    "MSW로 API 모킹",
+    "TanStack Query 서버 상태 관리",
+    "낙관적 업데이트 패턴",
+    "Query Key 관리"
+  ]
+}
