@@ -3,50 +3,8 @@
  * CSS Modules와 함께 사용되는 기본 스타일
  */
 
-:root {
-  /* 색상 토큰 */
-  --color-primary: #646cff;
-  --color-primary-hover: #535bf2;
-  --color-background: #242424;
-  --color-text: rgba(255, 255, 255, 0.87);
-  --color-text-muted: #888;
-
-  /* 타이포그래피 */
-  --font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --line-height-base: 1.5;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-
-  /* 스페이싱 */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-
-  /* 트랜지션 */
-  --transition-fast: 150ms;
-  --transition-normal: 250ms;
-  --transition-slow: 300ms;
-
-  /* 포커스 스타일 */
-  --focus-ring-color: var(--color-primary);
-  --focus-ring-width: 2px;
-  --focus-ring-offset: 2px;
-
-  font-family: var(--font-family);
-  line-height: var(--line-height-base);
-  font-weight: var(--font-weight-normal);
-
-  color-scheme: light dark;
-  color: var(--color-text);
-  background-color: var(--color-background);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* 디자인 토큰 import */
+@import './styles/tokens.css';
 
 *,
 *::before,
@@ -56,20 +14,25 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
   min-height: 100vh;
 }
 
 a {
-  font-weight: var(--font-weight-medium);
-  color: var(--color-primary);
-  text-decoration: inherit;
+  color: var(--color-primary-600);
+  text-decoration: none;
 }
 
 a:hover {
-  color: var(--color-primary-hover);
+  text-decoration: underline;
 }
 
 /* 접근성을 위한 포커스 스타일 */
@@ -78,11 +41,15 @@ a:hover {
   outline-offset: var(--focus-ring-offset);
 }
 
-/* 라이트 모드 */
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-background: #ffffff;
-    --color-text: #213547;
-    --color-primary-hover: #747bff;
-  }
+/* 스크린 리더 전용 (시각적으로 숨김) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

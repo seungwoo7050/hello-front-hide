@@ -1,0 +1,81 @@
+/* Card 컴포넌트 스타일 */
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.elevated {
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.outlined {
+  box-shadow: none;
+}
+
+/* 패딩 변형 */
+.paddingNone {
+  padding: 0;
+}
+
+.paddingSmall {
+  padding: var(--spacing-3);
+}
+
+.paddingMedium {
+  padding: var(--spacing-4);
+}
+
+.paddingLarge {
+  padding: var(--spacing-6);
+}
+
+/* 인터랙티브 카드 */
+.interactive {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.interactive:hover {
+  border-color: var(--color-primary-300);
+  box-shadow: var(--shadow-md);
+}
+
+.interactive:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* 카드 헤더 */
+.header {
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.headerSubtitle {
+  margin: var(--spacing-1) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* 카드 본문 */
+.body {
+  padding: var(--spacing-4);
+}
+
+/* 카드 푸터 */
+.footer {
+  padding: var(--spacing-4);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-background-secondary);
+}

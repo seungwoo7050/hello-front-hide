@@ -2,8 +2,8 @@
   "stageId": 0,
   "stageName": "프로젝트 초기화",
   "status": "completed",
-  "timestamp": "2026-01-11T20:12:00.000Z",
-  "commitHash": "pending",
+  "timestamp": "2026-01-11T20:14:55.000Z",
+  "commitHash": "0bab022",
   "artifacts": {
     "docs": [
       "docs/stage-0.md",

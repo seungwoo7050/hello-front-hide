@@ -1,0 +1,80 @@
+/* Badge 컴포넌트 스타일 */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1);
+  
+  padding: var(--spacing-1) var(--spacing-2);
+  
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  
+  border-radius: var(--radius-full);
+}
+
+/* 색상 변형 */
+.default {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.primary {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-700);
+}
+
+.success {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--color-success-600);
+}
+
+.warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning-600);
+}
+
+.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-error-600);
+}
+
+.info {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--color-info-600);
+}
+
+/* 크기 변형 */
+.small {
+  padding: 2px var(--spacing-1);
+  font-size: 10px;
+}
+
+.large {
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+/* 도트 스타일 */
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* 다크 모드 */
+@media (prefers-color-scheme: dark) {
+  .default {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-300);
+  }
+
+  .primary {
+    background-color: rgba(99, 102, 241, 0.2);
+    color: var(--color-primary-300);
+  }
+}
