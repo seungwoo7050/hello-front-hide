@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import type { Note, NoteColor } from '../../types';
 import { summarizeText, formatRelativeTime } from '../../utils';
 import styles from './NoteCard.module.css';
@@ -21,26 +22,30 @@ const colorClasses: Record<NoteColor, string> = {
   pink: styles.colorPink,
 };
 
-export function NoteCard({
+/**
+ * NoteCard 내부 컴포넌트
+ * React.memo로 감싸 불필요한 리렌더링 방지
+ */
+function NoteCardBase({
   note,
   isSelected = false,
   onSelect,
   onDelete,
   onTogglePin,
 }: NoteCardProps) {
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     onSelect?.(note);
-  };
+  }, [note, onSelect]);
 
-  const handleDelete = (e: React.MouseEvent) => {
+  const handleDelete = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     onDelete?.(note.id);
-  };
+  }, [note.id, onDelete]);
 
-  const handleTogglePin = (e: React.MouseEvent) => {
+  const handleTogglePin = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     onTogglePin?.(note.id);
-  };
+  }, [note.id, onTogglePin]);
 
   const cardClasses = [
     styles.noteCard,
@@ -139,5 +144,25 @@ export function NoteCard({
     </article>
   );
 }
+
+/**
+ * NoteCard 컴포넌트
+ * 메모이제이션 적용: note 객체나 isSelected가 변경될 때만 리렌더링
+ */
+export const NoteCard = memo(NoteCardBase, (prevProps, nextProps) => {
+  // 커스텀 비교 함수: 특정 속성만 비교하여 불필요한 리렌더링 방지
+  return (
+    prevProps.note.id === nextProps.note.id &&
+    prevProps.note.title === nextProps.note.title &&
+    prevProps.note.content === nextProps.note.content &&
+    prevProps.note.color === nextProps.note.color &&
+    prevProps.note.isPinned === nextProps.note.isPinned &&
+    prevProps.note.updatedAt === nextProps.note.updatedAt &&
+    prevProps.isSelected === nextProps.isSelected &&
+    prevProps.onSelect === nextProps.onSelect &&
+    prevProps.onDelete === nextProps.onDelete &&
+    prevProps.onTogglePin === nextProps.onTogglePin
+  );
+});
 
 export default NoteCard;
