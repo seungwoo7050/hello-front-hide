@@ -32,3 +32,6 @@ export { Select } from './Select'
 export type { SelectOption } from './Select'
 
 export { Checkbox } from './Checkbox'
+
+export { ThemeToggle } from './ThemeToggle'
+export type { ThemeToggleProps } from './ThemeToggle'

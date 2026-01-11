@@ -1,0 +1,63 @@
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+/* 크기 변형 */
+.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.sm .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.md {
+  width: 40px;
+  height: 40px;
+}
+
+.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.lg .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.themeToggle:hover {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-500);
+  color: var(--color-primary-500);
+}
+
+.themeToggle:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* 다크 모드에서 아이콘 색상 조정 */
+[data-theme='dark'] .themeToggle {
+  background: var(--color-surface);
+}
+
+[data-theme='dark'] .themeToggle:hover {
+  background: var(--color-primary-900);
+}

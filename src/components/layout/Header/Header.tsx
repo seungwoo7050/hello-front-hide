@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { ThemeToggle } from '../../ui/ThemeToggle';
 import styles from './Header.module.css';
 
 interface HeaderProps {
@@ -67,9 +68,9 @@ export function Header({
           ))}
         </nav>
 
-        {/* 우측 섹션 (추후 확장용) */}
+        {/* 우측 섹션 */}
         <div className={styles.rightSection}>
-          {/* 테마 토글, 사용자 메뉴 등 */}
+          <ThemeToggle />
         </div>
       </div>
     </header>

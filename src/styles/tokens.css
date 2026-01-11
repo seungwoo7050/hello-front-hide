@@ -110,9 +110,9 @@
   --z-toast: 1100;
 }
 
-/* 다크 모드 */
+/* 다크 모드 - 시스템 설정 기반 */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --color-background: var(--color-gray-900);
     --color-background-secondary: var(--color-gray-800);
     --color-surface: var(--color-gray-800);
@@ -120,5 +120,39 @@
     --color-text-secondary: var(--color-gray-400);
     --color-text-muted: var(--color-gray-500);
     --color-border: var(--color-gray-700);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
   }
+}
+
+/* 다크 모드 - 수동 설정 */
+[data-theme='dark'] {
+  --color-background: var(--color-gray-900);
+  --color-background-secondary: var(--color-gray-800);
+  --color-surface: var(--color-gray-800);
+  --color-text: var(--color-gray-100);
+  --color-text-secondary: var(--color-gray-400);
+  --color-text-muted: var(--color-gray-500);
+  --color-border: var(--color-gray-700);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+}
+
+/* 라이트 모드 - 수동 설정 (기본값 재확인) */
+[data-theme='light'] {
+  --color-background: #ffffff;
+  --color-background-secondary: var(--color-gray-50);
+  --color-surface: #ffffff;
+  --color-text: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-muted: var(--color-gray-400);
+  --color-border: var(--color-gray-200);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
