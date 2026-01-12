@@ -1,0 +1,174 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  env_check:
+    name: Environment diagnostics
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Node / Package diagnostics
+        run: |
+          mkdir -p .github/workflows/scripts
+          cat > .github/workflows/scripts/env-check.js <<'NODE'
+          console.log('node', process.version);
+          console.log('globalThis', typeof globalThis !== 'undefined');
+          console.log('Map', typeof Map); console.log('Set', typeof Set); console.log('WeakMap', typeof WeakMap);
+          const cp = require('child_process');
+          try {
+            const res = cp.execSync('npm ls whatwg-url --json', {encoding: 'utf8'});
+            console.log('npm ls whatwg-url:', res);
+          } catch(e) {
+            console.error('npm ls whatwg-url failed:', e && e.message);
+          }
+          try {
+            const pkg = require('whatwg-url/package.json');
+            console.log('whatwg-url version:', pkg.version);
+          } catch(e) {
+            console.error('whatwg-url require failed:', e && e.stack);
+          }
+          try {
+            const pkg2 = require('webidl-conversions/package.json');
+            console.log('webidl-conversions version:', pkg2.version);
+          } catch(e) {
+            console.error('webidl-conversions require failed:', e && e.stack);
+          }
+          try {
+            require('whatwg-url/lib/URL.js');
+            console.log('require whatwg-url/lib/URL.js succeeded');
+          } catch(e) {
+            console.error('require whatwg-url/lib/URL.js failed:', e && e.stack);
+          }
+          NODE
+          node .github/workflows/scripts/env-check.js || true
+
+  lint_and_unit:
+    name: Lint & Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm run test -- --run
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: lint_and_unit
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+  e2e:
+    name: Playwright E2E
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Start preview server (robust)
+        run: |
+          # Start Vite preview and capture logs
+          npm run preview -- --port 5173 --host > /tmp/vite-preview.log 2>&1 &
+          echo "Waiting for preview server..."
+          # Use local wait-on (installed as dev dependency) with a timeout and verbose output
+          npx wait-on http://127.0.0.1:5173 --timeout 30000 --verbose || (echo "Preview server failed to start, dumping logs:" && sed -n '1,200p' /tmp/vite-preview.log && exit 1)
+        env:
+          CI: true
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test --reporter=github
+
+  deploy_preview:
+    name: Deploy Preview (Vercel)
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check Vercel token
+        id: check_vercel
+        run: |
+          if [ -n "${{ secrets.VERCEL_TOKEN }}" ]; then
+            echo "allow=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "allow=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Vercel Deploy
+        if: ${{ steps.check_vercel.outputs.allow == 'true' }}
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--scope ${{ secrets.VERCEL_SCOPE }}'
+          working-directory: '.'
+          github-comment: true
+
+# Notes:
+# - If you prefer Netlify, replace the Vercel step with a Netlify action and corresponding secrets.
+# - Vercel's native GitHub integration can be used instead of an action; if you connect the repo in Vercel, preview builds will show automatically on PRs without extra secrets.

@@ -125,6 +125,7 @@ export function NoteEditor({
               variant="ghost" 
               size="small" 
               onClick={handleDelete}
+              data-testid="note-delete-button"
             >
               삭제
             </Button>
@@ -132,7 +133,11 @@ export function NoteEditor({
         </header>
 
         <div className={styles.form}>
-          <h1 className={styles.titleInput} style={{ cursor: 'default' }}>
+          <h1
+            className={styles.titleInput}
+            style={{ cursor: 'default' }}
+            data-testid="note-detail-title"
+          >
             {note.title || '제목 없음'}
           </h1>
 
@@ -144,6 +149,7 @@ export function NoteEditor({
                 cursor: 'default',
                 overflow: 'auto',
               }}
+              data-testid="note-detail-content"
             >
               {note.content || '내용 없음'}
             </div>
