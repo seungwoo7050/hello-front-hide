@@ -1,0 +1,16 @@
+dry-run: null
+hookfiles: null
+language: nodejs
+server: null
+server-wait: 3
+init: false
+title: Hello Front Opus API contract
+names: false
+only: []
+reporter: markdown
+output: ./reports/dredd-report.md
+details: true
+header:
+  Authorization: 'Bearer <TOKEN>'
+path: docs/openapi.yaml
+hooks: ./dredd-hooks.js

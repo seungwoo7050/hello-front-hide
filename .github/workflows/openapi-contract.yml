@@ -1,0 +1,40 @@
+name: OpenAPI Contract
+
+on:
+  workflow_dispatch:
+    inputs:
+      target-url:
+        description: 'Base URL of API implementation to test (e.g., https://staging.example.com)'
+        required: true
+        default: 'http://localhost:3000'
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Validate OpenAPI (Redocly)
+        run: npx @redocly/openapi-cli lint docs/openapi.yaml || npx @apidevtools/swagger-cli validate docs/openapi.yaml
+
+      - name: Run Dredd contract tests
+        run: |
+          npx dredd docs/openapi.yaml ${{ github.event.inputs['target-url'] }} --hookfiles=./dredd-hooks.js || true
+        env:
+          DREDD_REPORTS_PATH: ./reports/dredd-report.md
+
+      - name: Upload Dredd report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dredd-report
+          path: reports/dredd-report.md

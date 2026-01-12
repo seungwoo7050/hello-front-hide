@@ -11,7 +11,11 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "test": "vitest",
     "test:e2e": "playwright test",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mock:openapi": "npx @stoplight/prism-cli mock docs/openapi.yaml -p 3000",
+    "openapi:types": "npx openapi-typescript docs/openapi.yaml --output src/api/openapi-types.ts",
+    "openapi:validate": "npx @redocly/openapi-cli lint docs/openapi.yaml || npx @apidevtools/swagger-cli validate docs/openapi.yaml",
+    "contract:test": "npx dredd docs/openapi.yaml http://localhost:3000"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.16",
