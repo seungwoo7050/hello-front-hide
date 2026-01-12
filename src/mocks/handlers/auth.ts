@@ -8,6 +8,7 @@ import type {
   RegisterRequest,
   User,
 } from '../../features/auth/types'
+import { createMockJwt, isTokenExpired } from '../../features/auth/jwt'
 
 /** 테스트용 사용자 데이터 */
 interface StoredUser extends User {
@@ -41,8 +42,17 @@ export function resetAuthState(): void {
 }
 
 /** 토큰 생성 */
-function generateToken(): string {
-  return `token-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+function generateTokens(user: StoredUser) {
+  const accessToken = createMockJwt(
+    { sub: user.id, email: user.email, name: user.name, type: 'access' },
+    15 * 60
+  )
+  const refreshToken = createMockJwt(
+    { sub: user.id, type: 'refresh' },
+    60 * 60 * 24 * 7
+  )
+
+  return { accessToken, refreshToken }
 }
 
 /** 사용자 응답 생성 (비밀번호 제외) */
@@ -71,12 +81,11 @@ export const authHandlers = [
 
     currentUserId = user.id
 
+    const tokens = generateTokens(user)
+
     const response: AuthResponse = {
       user: toUserResponse(user),
-      tokens: {
-        accessToken: generateToken(),
-        refreshToken: generateToken(),
-      },
+      tokens,
     }
 
     return HttpResponse.json(response)
@@ -108,12 +117,11 @@ export const authHandlers = [
     users.push(newUser)
     currentUserId = newUser.id
 
+    const tokens = generateTokens(newUser)
+
     const response: AuthResponse = {
       user: toUserResponse(newUser),
-      tokens: {
-        accessToken: generateToken(),
-        refreshToken: generateToken(),
-      },
+      tokens,
     }
 
     return HttpResponse.json(response, { status: 201 })
@@ -131,17 +139,11 @@ export const authHandlers = [
     await delay(200)
 
     const authHeader = request.headers.get('Authorization')
+    const accessToken = authHeader?.replace('Bearer ', '') ?? null
 
-    if (!authHeader?.startsWith('Bearer ')) {
+    if (!accessToken || isTokenExpired(accessToken)) {
       return HttpResponse.json(
-        { message: '인증이 필요합니다.' },
-        { status: 401 }
-      )
-    }
-
-    if (!currentUserId) {
-      return HttpResponse.json(
-        { message: '인증이 필요합니다.' },
+        { message: '인증이 필요합니다.', code: 'TOKEN_EXPIRED' },
         { status: 401 }
       )
     }
@@ -163,17 +165,18 @@ export const authHandlers = [
     await delay(200)
 
     const body = (await request.json()) as { refreshToken: string }
+    const refreshToken = body.refreshToken
 
-    if (!body.refreshToken) {
+    if (!refreshToken) {
       return HttpResponse.json(
         { message: '리프레시 토큰이 필요합니다.' },
         { status: 400 }
       )
     }
 
-    if (!currentUserId) {
+    if (!currentUserId || isTokenExpired(refreshToken)) {
       return HttpResponse.json(
-        { message: '인증이 만료되었습니다.' },
+        { message: '인증이 만료되었습니다.', code: 'TOKEN_EXPIRED' },
         { status: 401 }
       )
     }
@@ -187,12 +190,11 @@ export const authHandlers = [
       )
     }
 
+    const tokens = generateTokens(user)
+
     const response: AuthResponse = {
       user: toUserResponse(user),
-      tokens: {
-        accessToken: generateToken(),
-        refreshToken: generateToken(),
-      },
+      tokens,
     }
 
     return HttpResponse.json(response)

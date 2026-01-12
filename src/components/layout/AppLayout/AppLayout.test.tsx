@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { AppLayout } from './AppLayout'
+import { AuthProvider } from '../../../features/auth'
+import { ToastProvider } from '../../ui'
 
 // 라우터 context가 필요한 컴포넌트를 위한 래퍼
 const renderWithRouter = (
@@ -10,7 +12,11 @@ const renderWithRouter = (
   initialEntries: string[] = ['/']
 ) => {
   return render(
-    <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
+    <MemoryRouter initialEntries={initialEntries}>
+      <AuthProvider>
+        <ToastProvider>{ui}</ToastProvider>
+      </AuthProvider>
+    </MemoryRouter>
   )
 }
 

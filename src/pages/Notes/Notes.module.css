@@ -29,6 +29,13 @@
   min-height: 0;
 }
 
+.loadingState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
 .listPanel {
   min-height: 0;
   max-height: calc(100vh - 250px);

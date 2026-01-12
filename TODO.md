@@ -386,12 +386,13 @@ Mock API를 활용하여 인증 흐름과 서버 상태 관리를 학습한다.
 ### Stage 13 — 미비된 구현 완성 (JWT + API 강화 + E2E 확장)
 - 목적: Stage 10-12에서 계획되었으나 미완성된 기능들(JWT, API 에러 핸들링, E2E 시나리오 등)을 전반적으로 완성하여 프로젝트 완성도를 높임. 포맷팅 외 기능 중심.
 - 주요 체크리스트:
-  - [ ] JWT 토큰 관리 완성: `jwt-decode` 추가, 토큰 파싱/리프레시 로직 구현, Axios 인터셉터로 헤더 자동 추가
-  - [ ] API 에러 핸들링 강화: 401/403/500 상태 코드별 처리, Toast 연동, 글로벌 에러 인터셉터 추가
-  - [ ] 낙관적 업데이트 구현: React Query로 즉시 UI 업데이트 후 롤백 로직 추가
-  - [ ] 추가 E2E 시나리오 확장: 로그인/오프라인 테스트 추가, CI 워크플로 완성
-  - [ ] PR 보호 규칙 설정: GitHub에서 테스트 성공 시만 머지 허용
-  - [ ] MSW 핸들러 강화 및 ADR 문서화
+  - [ ] JWT 토큰 관리 완성: `jwt-decode` 도입, 만료 시간 파싱, 리프레시 토큰 플로우 및 요청 재시도, fetch/인터셉터 수준에서 Authorization 자동 부착 (현재는 localStorage 저장과 단순 헤더만 존재)
+  - [ ] API 에러 핸들링/토스트: 401/403/500/네트워크 에러 공통 처리, 인증 만료 시 토큰 정리+리다이렉트, 사용자 토스트/에러 경계 연동 (현재 fetchApi는 예외만 throw)
+  - [x] 노트 뮤테이션 낙관적 업데이트: React Query `onMutate` + 롤백 로직이 update/delete/pin에 구현되어 있음(useNotesQuery) → 검증만 수행
+  - [ ] 노트 화면을 API 기반으로 전환: Notes 페이지가 여전히 localStorage(usePersistedNotes)에 의존 → React Query/notesApi + JWT 보호/에러 핸들링을 연결
+  - [ ] 추가 E2E 시나리오 확장: 로그인 성공/실패, 토큰 만료·오프라인 시나리오 추가, MSW 상태 토글; CI 워크플로(.github/workflows/ci.yml)에서 E2E 실행은 이미 동작 중이므로 유지 검증
+  - [ ] PR 보호 규칙 설정: main 브랜치에 CI 성공 필수/필수 리뷰 등의 보호 규칙 적용 및 문서화
+  - [ ] MSW/ADR 보강: auth/notes 핸들러에 토큰 만료/에러 케이스 보강, API 연동 ADR 추가 (`docs/adr/api-integration.md` 등)
 - 필수 작업 과정: 로컬에서 `Dockerfile.ci`를 사용해 CI와 동일 환경 조성 (lint/build/test/E2E pass 확인) 후 커밋. CI/CD 반복 에러 방지.
 - 완료 기준: 모든 미비 기능 구현 및 로컬 Docker 환경에서 CI 패스. 프로젝트의 "완성도" 극대화.
 

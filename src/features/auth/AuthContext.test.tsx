@@ -39,6 +39,7 @@ function TestConsumer() {
 describe('AuthContext', () => {
   beforeEach(() => {
     localStorage.clear()
+    tokenStorage.clearTokens()
     resetAuthState()
   })
 

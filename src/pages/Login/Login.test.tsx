@@ -5,7 +5,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router'
-import { AuthProvider } from '../../features/auth'
+import { AuthProvider, tokenStorage } from '../../features/auth'
 import { Login } from './Login'
 import { resetAuthState } from '../../mocks/handlers/auth'
 
@@ -25,6 +25,7 @@ function renderLogin(initialPath = '/login') {
 describe('Login 페이지', () => {
   beforeEach(() => {
     localStorage.clear()
+    tokenStorage.clearTokens()
     resetAuthState()
   })
 

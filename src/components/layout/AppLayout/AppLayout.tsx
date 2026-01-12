@@ -5,6 +5,7 @@ import { Sidebar } from '../Sidebar'
 import { Main } from '../Main'
 import { Footer } from '../Footer'
 import { Breadcrumb } from '../Breadcrumb'
+import { ApiErrorListener } from '../../ApiErrorListener'
 import styles from './AppLayout.module.css'
 
 interface AppLayoutProps {
@@ -43,6 +44,7 @@ export function AppLayout({
       )}
 
       <Main hasSidebar={showSidebar}>
+        <ApiErrorListener />
         {showBreadcrumb && <Breadcrumb />}
         <Outlet />
       </Main>

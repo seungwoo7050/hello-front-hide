@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen, act, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, act, fireEvent } from '@testing-library/react'
 import { ToastProvider } from './ToastProvider'
 import { useToast } from './ToastContext'
 
@@ -22,11 +22,13 @@ function TestComponent() {
 
 describe('ToastProvider', () => {
   beforeEach(() => {
-    vi.useFakeTimers({ shouldAdvanceTime: true })
+    vi.useFakeTimers()
   })
 
   afterEach(() => {
-    vi.runOnlyPendingTimers()
+    act(() => {
+      vi.runOnlyPendingTimers()
+    })
     vi.useRealTimers()
   })
 
@@ -169,12 +171,10 @@ describe('ToastProvider', () => {
 
     expect(screen.getByText('기본 토스트')).toBeInTheDocument()
 
-    await act(async () => {
-      vi.advanceTimersByTime(5000)
+    act(() => {
+      vi.runAllTimers()
     })
 
-    await waitFor(() => {
-      expect(screen.queryByText('기본 토스트')).not.toBeInTheDocument()
-    })
+    expect(screen.queryByText('기본 토스트')).not.toBeInTheDocument()
   })
 })

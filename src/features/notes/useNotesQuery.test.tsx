@@ -5,6 +5,8 @@ import type { ReactNode } from 'react'
 import { useNotesQuery, useCreateNote, useDeleteNote } from './useNotesQuery'
 import { resetNotes } from '../../mocks/handlers/notes'
 import type { Note, NoteFormValues } from './types'
+import { tokenStorage } from '../auth/tokenStorage'
+import { createMockJwt } from '../auth/jwt'
 
 function createTestQueryClient() {
   return new QueryClient({
@@ -32,6 +34,14 @@ function createWrapper() {
 describe('useNotesQuery', () => {
   beforeEach(() => {
     resetNotes()
+    tokenStorage.clearTokens()
+    const accessToken = createMockJwt({ sub: 'user-1', type: 'access' })
+    const refreshToken = createMockJwt({ sub: 'user-1', type: 'refresh' }, 3600)
+    tokenStorage.setTokens(accessToken, refreshToken)
+  })
+
+  afterEach(() => {
+    tokenStorage.clearTokens()
   })
 
   describe('조회', () => {

@@ -1,6 +1,7 @@
 import { http, HttpResponse, delay } from 'msw'
 import type { Note, NoteColor } from '../../features/notes/types'
 import { API_DELAY } from '../../api/client'
+import { isTokenExpired } from '../../features/auth/jwt'
 
 // 메모리 내 노트 저장소
 let notes: Note[] = [
@@ -68,6 +69,9 @@ export const notesHandlers = [
   http.get('/api/notes', async ({ request }) => {
     await delay(API_DELAY)
 
+    const unauthorized = guardAuth(request)
+    if (unauthorized) return unauthorized
+
     const url = new URL(request.url)
     const search = url.searchParams.get('search')?.toLowerCase() || ''
     const category = url.searchParams.get('category')
@@ -128,8 +132,11 @@ export const notesHandlers = [
   }),
 
   // 단일 노트 조회
-  http.get('/api/notes/:id', async ({ params }) => {
+  http.get('/api/notes/:id', async ({ params, request }) => {
     await delay(API_DELAY)
+
+    const unauthorized = guardAuth(request)
+    if (unauthorized) return unauthorized
 
     const note = notes.find((n) => n.id === params.id)
 
@@ -146,6 +153,9 @@ export const notesHandlers = [
   // 노트 생성
   http.post('/api/notes', async ({ request }) => {
     await delay(API_DELAY)
+
+    const unauthorized = guardAuth(request)
+    if (unauthorized) return unauthorized
 
     const body = (await request.json()) as {
       title: string
@@ -177,6 +187,9 @@ export const notesHandlers = [
   http.patch('/api/notes/:id', async ({ params, request }) => {
     await delay(API_DELAY)
 
+    const unauthorized = guardAuth(request)
+    if (unauthorized) return unauthorized
+
     const index = notes.findIndex((n) => n.id === params.id)
 
     if (index === -1) {
@@ -198,8 +211,11 @@ export const notesHandlers = [
   }),
 
   // 노트 삭제
-  http.delete('/api/notes/:id', async ({ params }) => {
+  http.delete('/api/notes/:id', async ({ params, request }) => {
     await delay(API_DELAY)
+
+    const unauthorized = guardAuth(request)
+    if (unauthorized) return unauthorized
 
     const index = notes.findIndex((n) => n.id === params.id)
 
@@ -216,8 +232,11 @@ export const notesHandlers = [
   }),
 
   // 핀 토글
-  http.patch('/api/notes/:id/pin', async ({ params }) => {
+  http.patch('/api/notes/:id/pin', async ({ params, request }) => {
     await delay(API_DELAY)
+
+    const unauthorized = guardAuth(request)
+    if (unauthorized) return unauthorized
 
     const index = notes.findIndex((n) => n.id === params.id)
 
@@ -265,4 +284,18 @@ export function resetNotes() {
     },
   ]
   nextId = 3
+}
+
+function guardAuth(request: Request) {
+  const authHeader = request.headers.get('Authorization')
+  const token = authHeader?.replace('Bearer ', '') ?? null
+
+  if (!token || isTokenExpired(token)) {
+    return HttpResponse.json(
+      { message: '인증이 필요합니다.', code: 'UNAUTHORIZED' },
+      { status: 401 }
+    )
+  }
+
+  return null
 }

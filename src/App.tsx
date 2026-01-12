@@ -7,7 +7,12 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 
 function App() {
   useEffect(() => {
-    // MSW 워커 시작 (항상 시작 - API 모킹 필요)
+    const canUseServiceWorker =
+      typeof window !== 'undefined' && 'serviceWorker' in navigator
+
+    if (!canUseServiceWorker) return
+
+    // MSW 워커 시작 (브라우저 환경에서만)
     import('./mocks/browser')
       .then(({ worker }) => {
         worker.start({

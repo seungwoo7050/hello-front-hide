@@ -8,6 +8,7 @@ import { AuthProvider } from '../../features/auth'
 import { tokenStorage } from '../../features/auth/tokenStorage'
 import { ProtectedRoute } from './ProtectedRoute'
 import { resetAuthState } from '../../mocks/handlers/auth'
+import { createMockJwt } from '../../features/auth/jwt'
 
 function renderWithAuth(initialPath: string) {
   return render(
@@ -45,7 +46,9 @@ describe('ProtectedRoute', () => {
 
   it('인증 확인 중에는 로딩이 표시된다', async () => {
     // 토큰이 있지만 아직 검증 전
-    tokenStorage.setAccessToken('test-token')
+    tokenStorage.setAccessToken(
+      createMockJwt({ sub: 'user-1', email: 'test@example.com' })
+    )
 
     renderWithAuth('/protected')
 
@@ -60,7 +63,9 @@ describe('ProtectedRoute', () => {
 
   it('사용자 정의 fallback을 렌더링할 수 있다', async () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
-    tokenStorage.setAccessToken('test-token')
+    tokenStorage.setAccessToken(
+      createMockJwt({ sub: 'user-1', email: 'test@example.com' })
+    )
 
     render(
       <MemoryRouter initialEntries={['/protected']}>
