@@ -1,16 +1,16 @@
-import styles from './Main.module.css';
+import styles from './Main.module.css'
 
 interface MainProps {
   /** 자식 컴포넌트 */
-  children: React.ReactNode;
+  children: React.ReactNode
   /** 사이드바 포함 여부 */
-  hasSidebar?: boolean;
+  hasSidebar?: boolean
   /** 사이드바 축소 상태 */
-  isSidebarCollapsed?: boolean;
+  isSidebarCollapsed?: boolean
   /** 전체 너비 사용 여부 */
-  fullWidth?: boolean;
+  fullWidth?: boolean
   /** 추가 CSS 클래스 */
-  className?: string;
+  className?: string
 }
 
 export function Main({
@@ -27,20 +27,17 @@ export function Main({
     className,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 
-  const contentClasses = [
-    styles.mainContent,
-    fullWidth && styles.mainFullWidth,
-  ]
+  const contentClasses = [styles.mainContent, fullWidth && styles.mainFullWidth]
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 
   return (
     <main className={mainClasses} role="main">
       <div className={contentClasses}>{children}</div>
     </main>
-  );
+  )
 }
 
-export default Main;
+export default Main

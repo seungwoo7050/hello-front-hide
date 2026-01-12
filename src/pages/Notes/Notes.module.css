@@ -47,7 +47,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
-  
+
   .listPanel,
   .editorPanel {
     max-height: calc(50vh - 100px);
@@ -60,15 +60,15 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-  
+
   .listPanel {
     max-height: calc(100vh - 200px);
   }
-  
+
   .editorPanel {
     display: none;
   }
-  
+
   .editorPanel.visible {
     display: block;
     position: fixed;
@@ -79,11 +79,11 @@
     z-index: 100;
     max-height: none;
   }
-  
+
   .header {
     margin-bottom: var(--spacing-4);
   }
-  
+
   .title {
     font-size: var(--font-size-xl);
   }

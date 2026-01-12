@@ -1,23 +1,23 @@
-import type { Note, NotesFilter, SortOption } from '../../types';
-import { NoteCard } from '../NoteCard';
-import { Button } from '../../../../components/ui';
-import styles from './NoteList.module.css';
+import type { Note, NotesFilter, SortOption } from '../../types'
+import { NoteCard } from '../NoteCard'
+import { Button } from '../../../../components/ui'
+import styles from './NoteList.module.css'
 
 interface NoteListProps {
-  notes: Note[];
-  filter: NotesFilter;
-  selectedNote: Note | null;
-  allCategories: string[];
-  allTags: string[];
-  onSelectNote: (note: Note) => void;
-  onDeleteNote: (id: string) => void;
-  onTogglePin: (id: string) => void;
-  onSearchChange: (search: string) => void;
-  onCategoryChange: (category: string | null) => void;
-  onTagChange: (tag: string | null) => void;
-  onSortChange: (sortBy: SortOption) => void;
-  onClearFilter: () => void;
-  onCreateNote: () => void;
+  notes: Note[]
+  filter: NotesFilter
+  selectedNote: Note | null
+  allCategories: string[]
+  allTags: string[]
+  onSelectNote: (note: Note) => void
+  onDeleteNote: (id: string) => void
+  onTogglePin: (id: string) => void
+  onSearchChange: (search: string) => void
+  onCategoryChange: (category: string | null) => void
+  onTagChange: (tag: string | null) => void
+  onSortChange: (sortBy: SortOption) => void
+  onClearFilter: () => void
+  onCreateNote: () => void
 }
 
 const sortOptions: { value: SortOption; label: string }[] = [
@@ -26,7 +26,7 @@ const sortOptions: { value: SortOption; label: string }[] = [
   { value: 'updated', label: '수정순' },
   { value: 'title-asc', label: '제목 (가나다)' },
   { value: 'title-desc', label: '제목 (역순)' },
-];
+]
 
 export function NoteList({
   notes,
@@ -45,7 +45,7 @@ export function NoteList({
   onCreateNote,
 }: NoteListProps) {
   const hasActiveFilter =
-    filter.search || filter.category || filter.tag || filter.sortBy !== 'newest';
+    filter.search || filter.category || filter.tag || filter.sortBy !== 'newest'
 
   return (
     <div className={styles.noteList}>
@@ -175,7 +175,7 @@ export function NoteList({
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default NoteList;
+export default NoteList

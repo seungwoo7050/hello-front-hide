@@ -1,2 +1,2 @@
-export { Notes } from './Notes';
-export { default } from './Notes';
+export { Notes } from './Notes'
+export { default } from './Notes'

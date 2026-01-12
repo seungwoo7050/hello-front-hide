@@ -1,2 +1,2 @@
-export { FormDemo } from './FormDemo';
-export { default } from './FormDemo';
+export { FormDemo } from './FormDemo'
+export { default } from './FormDemo'

@@ -5,20 +5,20 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
-  
+
   padding: var(--spacing-2) var(--spacing-4);
-  
+
   font-family: var(--font-family-base);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-normal);
-  
+
   border: 1px solid transparent;
   border-radius: var(--radius-md);
-  
+
   cursor: pointer;
   transition: all var(--transition-fast);
-  
+
   /* 접근성: 최소 터치 영역 */
   min-height: 2.5rem;
 }

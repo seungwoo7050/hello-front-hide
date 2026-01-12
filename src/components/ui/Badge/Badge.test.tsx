@@ -23,7 +23,15 @@ describe('Badge 컴포넌트', () => {
       ['error', '에러'],
       ['info', '정보'],
     ])('%s 변형이 렌더링되어야 한다', (variant, text) => {
-      render(<Badge variant={variant as 'primary' | 'success' | 'warning' | 'error' | 'info'}>{text}</Badge>)
+      render(
+        <Badge
+          variant={
+            variant as 'primary' | 'success' | 'warning' | 'error' | 'info'
+          }
+        >
+          {text}
+        </Badge>
+      )
       expect(screen.getByText(text)).toBeInTheDocument()
     })
   })

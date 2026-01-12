@@ -24,12 +24,16 @@ describe('Button 컴포넌트', () => {
   describe('크기', () => {
     it('small 크기 버튼이 렌더링되어야 한다', () => {
       render(<Button size="small">작은 버튼</Button>)
-      expect(screen.getByRole('button', { name: '작은 버튼' })).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: '작은 버튼' })
+      ).toBeInTheDocument()
     })
 
     it('large 크기 버튼이 렌더링되어야 한다', () => {
       render(<Button size="large">큰 버튼</Button>)
-      expect(screen.getByRole('button', { name: '큰 버튼' })).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: '큰 버튼' })
+      ).toBeInTheDocument()
     })
   })
 
@@ -37,30 +41,38 @@ describe('Button 컴포넌트', () => {
     it('클릭 이벤트가 발생해야 한다', async () => {
       const user = userEvent.setup()
       const handleClick = vi.fn()
-      
+
       render(<Button onClick={handleClick}>클릭</Button>)
       await user.click(screen.getByRole('button'))
-      
+
       expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
     it('disabled 상태에서는 클릭이 불가능해야 한다', async () => {
       const user = userEvent.setup()
       const handleClick = vi.fn()
-      
-      render(<Button disabled onClick={handleClick}>비활성</Button>)
+
+      render(
+        <Button disabled onClick={handleClick}>
+          비활성
+        </Button>
+      )
       await user.click(screen.getByRole('button'))
-      
+
       expect(handleClick).not.toHaveBeenCalled()
     })
 
     it('loading 상태에서는 클릭이 불가능해야 한다', async () => {
       const user = userEvent.setup()
       const handleClick = vi.fn()
-      
-      render(<Button loading onClick={handleClick}>로딩</Button>)
+
+      render(
+        <Button loading onClick={handleClick}>
+          로딩
+        </Button>
+      )
       await user.click(screen.getByRole('button'))
-      
+
       expect(handleClick).not.toHaveBeenCalled()
     })
   })
@@ -74,13 +86,13 @@ describe('Button 컴포넌트', () => {
     it('키보드로 버튼을 활성화할 수 있어야 한다', async () => {
       const user = userEvent.setup()
       const handleClick = vi.fn()
-      
+
       render(<Button onClick={handleClick}>키보드 테스트</Button>)
       const button = screen.getByRole('button')
-      
+
       button.focus()
       await user.keyboard('{Enter}')
-      
+
       expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
@@ -93,7 +105,9 @@ describe('Button 컴포넌트', () => {
   describe('fullWidth', () => {
     it('fullWidth 버튼이 렌더링되어야 한다', () => {
       render(<Button fullWidth>전체 너비</Button>)
-      expect(screen.getByRole('button', { name: '전체 너비' })).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: '전체 너비' })
+      ).toBeInTheDocument()
     })
   })
 })

@@ -7,7 +7,9 @@ describe('App 컴포넌트', () => {
     render(<App />)
     // lazy loading으로 인해 waitFor 사용
     await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 1, name: /Hello Front/i })).toBeInTheDocument()
+      expect(
+        screen.getByRole('heading', { level: 1, name: /Hello Front/i })
+      ).toBeInTheDocument()
     })
   })
 
@@ -18,12 +20,16 @@ describe('App 컴포넌트', () => {
 
   it('메인 네비게이션이 표시되어야 한다', () => {
     render(<App />)
-    expect(screen.getByRole('navigation', { name: '메인 네비게이션' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('navigation', { name: '메인 네비게이션' })
+    ).toBeInTheDocument()
   })
 
   it('사이드바가 표시되어야 한다', () => {
     render(<App />)
-    expect(screen.getByRole('complementary', { name: '사이드바 네비게이션' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('complementary', { name: '사이드바 네비게이션' })
+    ).toBeInTheDocument()
   })
 
   it('푸터가 표시되어야 한다', () => {

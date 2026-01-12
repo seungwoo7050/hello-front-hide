@@ -1,27 +1,29 @@
-import type { SelectHTMLAttributes } from 'react';
-import { useId } from 'react';
-import styles from './Select.module.css';
+import type { SelectHTMLAttributes } from 'react'
+import { useId } from 'react'
+import styles from './Select.module.css'
 
 export interface SelectOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
+  value: string
+  label: string
+  disabled?: boolean
 }
 
-interface SelectProps
-  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'id'> {
+interface SelectProps extends Omit<
+  SelectHTMLAttributes<HTMLSelectElement>,
+  'id'
+> {
   /** 라벨 */
-  label?: string;
+  label?: string
   /** 옵션 목록 */
-  options: SelectOption[];
+  options: SelectOption[]
   /** 에러 메시지 */
-  error?: string;
+  error?: string
   /** 도움말 텍스트 */
-  helperText?: string;
+  helperText?: string
   /** 필수 입력 표시 */
-  required?: boolean;
+  required?: boolean
   /** 플레이스홀더 */
-  placeholder?: string;
+  placeholder?: string
 }
 
 export function Select({
@@ -34,9 +36,9 @@ export function Select({
   className,
   ...props
 }: SelectProps) {
-  const id = useId();
-  const errorId = `${id}-error`;
-  const helperId = `${id}-helper`;
+  const id = useId()
+  const errorId = `${id}-error`
+  const helperId = `${id}-helper`
 
   return (
     <div className={`${styles.wrapper} ${className ?? ''}`}>
@@ -55,8 +57,9 @@ export function Select({
           className={`${styles.select} ${error ? styles.selectError : ''}`}
           aria-invalid={!!error}
           aria-describedby={
-            [error && errorId, helperText && helperId].filter(Boolean).join(' ') ||
-            undefined
+            [error && errorId, helperText && helperId]
+              .filter(Boolean)
+              .join(' ') || undefined
           }
           {...props}
         >
@@ -100,7 +103,7 @@ export function Select({
         </span>
       )}
     </div>
-  );
+  )
 }
 
-export default Select;
+export default Select

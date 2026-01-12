@@ -1,18 +1,73 @@
-import styles from './About.module.css';
+import styles from './About.module.css'
 
 const stages = [
-  { number: 0, name: '프로젝트 초기화', description: 'Vite + React + TypeScript 설정', completed: true },
-  { number: 1, name: 'UI Kit + Playground', description: '기본 UI 컴포넌트 개발', completed: true },
-  { number: 2, name: '라우팅 + 반응형', description: 'React Router, 레이아웃 시스템', completed: true },
-  { number: 3, name: 'Form + Validation', description: '폼 처리 및 유효성 검사', completed: false },
-  { number: 4, name: 'Notes App', description: '메모 CRUD 구현', completed: false },
-  { number: 5, name: 'Local Persistence', description: 'localStorage 연동', completed: false },
-  { number: 6, name: 'File Upload', description: '파일 업로드 및 미리보기', completed: false },
-  { number: 7, name: 'Custom Timeline', description: 'rAF 기반 타임라인', completed: false },
-  { number: 8, name: 'Web Worker', description: 'Worker 스레드 통신', completed: false },
-  { number: 9, name: 'Capstone', description: '전체 기능 통합', completed: false },
-  { number: 10, name: 'API Integration', description: '인증 및 서버 상태 관리', completed: false },
-];
+  {
+    number: 0,
+    name: '프로젝트 초기화',
+    description: 'Vite + React + TypeScript 설정',
+    completed: true,
+  },
+  {
+    number: 1,
+    name: 'UI Kit + Playground',
+    description: '기본 UI 컴포넌트 개발',
+    completed: true,
+  },
+  {
+    number: 2,
+    name: '라우팅 + 반응형',
+    description: 'React Router, 레이아웃 시스템',
+    completed: true,
+  },
+  {
+    number: 3,
+    name: 'Form + Validation',
+    description: '폼 처리 및 유효성 검사',
+    completed: false,
+  },
+  {
+    number: 4,
+    name: 'Notes App',
+    description: '메모 CRUD 구현',
+    completed: false,
+  },
+  {
+    number: 5,
+    name: 'Local Persistence',
+    description: 'localStorage 연동',
+    completed: false,
+  },
+  {
+    number: 6,
+    name: 'File Upload',
+    description: '파일 업로드 및 미리보기',
+    completed: false,
+  },
+  {
+    number: 7,
+    name: 'Custom Timeline',
+    description: 'rAF 기반 타임라인',
+    completed: false,
+  },
+  {
+    number: 8,
+    name: 'Web Worker',
+    description: 'Worker 스레드 통신',
+    completed: false,
+  },
+  {
+    number: 9,
+    name: 'Capstone',
+    description: '전체 기능 통합',
+    completed: false,
+  },
+  {
+    number: 10,
+    name: 'API Integration',
+    description: '인증 및 서버 상태 관리',
+    completed: false,
+  },
+]
 
 const techStack = [
   'React 19',
@@ -24,7 +79,7 @@ const techStack = [
   'Testing Library',
   'ESLint',
   'Prettier',
-];
+]
 
 export function About() {
   return (
@@ -82,7 +137,9 @@ export function About() {
               <li key={stage.number} className={styles.stageItem}>
                 <span
                   className={`${styles.stageNumber} ${
-                    stage.completed ? styles.stageCompleted : styles.stagePending
+                    stage.completed
+                      ? styles.stageCompleted
+                      : styles.stagePending
                   }`}
                 >
                   {stage.completed ? '✓' : stage.number}
@@ -117,19 +174,20 @@ export function About() {
             학습 목표
           </h2>
           <p className={styles.paragraph}>
-            이 프로젝트는 현대적인 프론트엔드 개발의 핵심 개념을 단계별로 학습하기 
-            위해 설계되었습니다. 각 단계는 이전 단계를 기반으로 구축되며, 실용적인 
-            기능을 구현하면서 React와 TypeScript의 모범 사례를 익힐 수 있습니다.
+            이 프로젝트는 현대적인 프론트엔드 개발의 핵심 개념을 단계별로
+            학습하기 위해 설계되었습니다. 각 단계는 이전 단계를 기반으로
+            구축되며, 실용적인 기능을 구현하면서 React와 TypeScript의 모범
+            사례를 익힐 수 있습니다.
           </p>
           <p className={styles.paragraph}>
-            모든 코드는 테스트 커버리지를 유지하며, ESLint와 Prettier를 통해 
-            일관된 코드 품질을 보장합니다. CSS Modules를 사용하여 스타일 충돌 없이 
-            컴포넌트별 스타일링을 관리합니다.
+            모든 코드는 테스트 커버리지를 유지하며, ESLint와 Prettier를 통해
+            일관된 코드 품질을 보장합니다. CSS Modules를 사용하여 스타일 충돌
+            없이 컴포넌트별 스타일링을 관리합니다.
           </p>
         </section>
       </div>
     </div>
-  );
+  )
 }
 
-export default About;
+export default About

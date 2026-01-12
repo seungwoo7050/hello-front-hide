@@ -60,7 +60,7 @@
   --note-bg: #fdf2f8;
 }
 
-.noteCard[class*="color"]:not(.colorDefault) {
+.noteCard[class*='color']:not(.colorDefault) {
   background: var(--note-bg);
   border-left: 4px solid var(--note-accent);
 }
@@ -176,11 +176,11 @@
   .noteCard {
     padding: var(--spacing-3);
   }
-  
+
   .title {
     font-size: var(--font-size-base);
   }
-  
+
   .content {
     -webkit-line-clamp: 2;
   }

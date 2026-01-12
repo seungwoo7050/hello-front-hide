@@ -5,14 +5,14 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-1);
-  
+
   padding: var(--spacing-1) var(--spacing-2);
-  
+
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   line-height: 1;
   white-space: nowrap;
-  
+
   border-radius: var(--radius-full);
 }
 

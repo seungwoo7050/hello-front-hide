@@ -1,16 +1,16 @@
-import { useState, useMemo } from 'react';
-import type { Note, NoteFormValues, NoteColor } from '../../types';
-import { formatDate } from '../../utils';
-import { Button } from '../../../../components/ui';
-import styles from './NoteEditor.module.css';
+import { useState, useMemo } from 'react'
+import type { Note, NoteFormValues, NoteColor } from '../../types'
+import { formatDate } from '../../utils'
+import { Button } from '../../../../components/ui'
+import styles from './NoteEditor.module.css'
 
 interface NoteEditorProps {
-  note: Note | null;
-  isEditing: boolean;
-  onSave: (values: NoteFormValues) => void;
-  onCancel: () => void;
-  onEdit: () => void;
-  onDelete?: (id: string) => void;
+  note: Note | null
+  isEditing: boolean
+  onSave: (values: NoteFormValues) => void
+  onCancel: () => void
+  onEdit: () => void
+  onDelete?: (id: string) => void
 }
 
 const colors: NoteColor[] = [
@@ -22,7 +22,7 @@ const colors: NoteColor[] = [
   'blue',
   'purple',
   'pink',
-];
+]
 
 const defaultValues: NoteFormValues = {
   title: '',
@@ -30,18 +30,18 @@ const defaultValues: NoteFormValues = {
   category: '',
   tags: '',
   color: 'default',
-};
+}
 
 // 노트에서 폼 값 추출
 function getFormValues(note: Note | null): NoteFormValues {
-  if (!note) return defaultValues;
+  if (!note) return defaultValues
   return {
     title: note.title,
     content: note.content,
     category: note.category,
     tags: note.tags.join(', '),
     color: note.color,
-  };
+  }
 }
 
 export function NoteEditor({
@@ -53,37 +53,39 @@ export function NoteEditor({
   onDelete,
 }: NoteEditorProps) {
   // 노트 ID를 키로 사용하여 초기 값 계산
-  const initialValues = useMemo(() => getFormValues(note), [note]);
-  const [formValues, setFormValues] = useState<NoteFormValues>(initialValues);
-  
+  const initialValues = useMemo(() => getFormValues(note), [note])
+  const [formValues, setFormValues] = useState<NoteFormValues>(initialValues)
+
   // 노트가 변경될 때 폼 값 동기화 (useMemo로 계산된 값 사용)
   if (formValues !== initialValues && !isEditing) {
-    setFormValues(initialValues);
+    setFormValues(initialValues)
   }
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
-  };
+    const { name, value } = e.target
+    setFormValues((prev) => ({ ...prev, [name]: value }))
+  }
 
   const handleColorChange = (color: NoteColor) => {
-    setFormValues((prev) => ({ ...prev, color }));
-  };
+    setFormValues((prev) => ({ ...prev, color }))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSave(formValues);
-  };
+    e.preventDefault()
+    onSave(formValues)
+  }
 
   const handleDelete = () => {
     if (note && onDelete) {
       if (window.confirm('이 노트를 삭제하시겠습니까?')) {
-        onDelete(note.id);
+        onDelete(note.id)
       }
     }
-  };
+  }
 
   // 빈 상태 (노트가 선택되지 않고 편집 모드도 아닐 때)
   if (!note && !isEditing) {
@@ -103,12 +105,11 @@ export function NoteEditor({
           <h3 className={styles.emptyTitle}>노트를 선택하세요</h3>
           <p className={styles.emptyDescription}>
             왼쪽 목록에서 노트를 선택하거나
-            <br />
-            새 노트를 작성해보세요.
+            <br />새 노트를 작성해보세요.
           </p>
         </div>
       </div>
-    );
+    )
   }
 
   // 읽기 모드
@@ -121,9 +122,9 @@ export function NoteEditor({
             <Button variant="ghost" size="small" onClick={onEdit}>
               수정
             </Button>
-            <Button 
-              variant="ghost" 
-              size="small" 
+            <Button
+              variant="ghost"
+              size="small"
               onClick={handleDelete}
               data-testid="note-delete-button"
             >
@@ -144,8 +145,8 @@ export function NoteEditor({
           <div className={styles.contentWrapper}>
             <div
               className={styles.contentTextarea}
-              style={{ 
-                whiteSpace: 'pre-wrap', 
+              style={{
+                whiteSpace: 'pre-wrap',
                 cursor: 'default',
                 overflow: 'auto',
               }}
@@ -158,14 +159,22 @@ export function NoteEditor({
           <div className={styles.metaSection}>
             <div className={styles.fieldGroup}>
               <span className={styles.fieldLabel}>카테고리</span>
-              <span className={styles.fieldInput} style={{ background: 'transparent' }}>
+              <span
+                className={styles.fieldInput}
+                style={{ background: 'transparent' }}
+              >
                 {note.category || '-'}
               </span>
             </div>
             <div className={styles.fieldGroup}>
               <span className={styles.fieldLabel}>태그</span>
-              <span className={styles.fieldInput} style={{ background: 'transparent' }}>
-                {note.tags.length > 0 ? note.tags.map((t) => `#${t}`).join(' ') : '-'}
+              <span
+                className={styles.fieldInput}
+                style={{ background: 'transparent' }}
+              >
+                {note.tags.length > 0
+                  ? note.tags.map((t) => `#${t}`).join(' ')
+                  : '-'}
               </span>
             </div>
           </div>
@@ -178,16 +187,14 @@ export function NoteEditor({
           </div>
         </footer>
       </div>
-    );
+    )
   }
 
   // 편집/생성 모드
   return (
     <div className={styles.editor}>
       <header className={styles.header}>
-        <h2 className={styles.headerTitle}>
-          {note ? '노트 수정' : '새 노트'}
-        </h2>
+        <h2 className={styles.headerTitle}>{note ? '노트 수정' : '새 노트'}</h2>
       </header>
 
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -265,9 +272,7 @@ export function NoteEditor({
 
       <footer className={styles.footer}>
         <div className={styles.footerInfo}>
-          {note && (
-            <>수정 중: {note.title || '제목 없음'}</>
-          )}
+          {note && <>수정 중: {note.title || '제목 없음'}</>}
         </div>
         <div className={styles.footerActions}>
           <Button variant="ghost" onClick={onCancel}>
@@ -279,7 +284,7 @@ export function NoteEditor({
         </div>
       </footer>
     </div>
-  );
+  )
 }
 
-export default NoteEditor;
+export default NoteEditor

@@ -1,4 +1,4 @@
-import type { Note } from './types';
+import type { Note } from './types'
 
 // 초기 샘플 노트
 export const sampleNotes: Note[] = [
@@ -98,4 +98,4 @@ export const sampleNotes: Note[] = [
     createdAt: new Date(Date.now() - 86400000 * 10).toISOString(),
     updatedAt: new Date(Date.now() - 86400000 * 10).toISOString(),
   },
-];
+]

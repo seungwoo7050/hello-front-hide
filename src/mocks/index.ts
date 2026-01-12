@@ -1,8 +1,8 @@
 export async function initMocks() {
   if (import.meta.env.DEV) {
-    const { worker } = await import('./browser');
+    const { worker } = await import('./browser')
     return worker.start({
       onUnhandledRequest: 'bypass',
-    });
+    })
   }
 }

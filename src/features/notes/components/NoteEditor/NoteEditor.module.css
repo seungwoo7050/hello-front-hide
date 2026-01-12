@@ -143,14 +143,30 @@
   box-shadow: 0 0 0 2px var(--color-surface);
 }
 
-.colorOption[data-color="default"] { background: var(--color-surface-hover); }
-.colorOption[data-color="red"] { background: #ef4444; }
-.colorOption[data-color="orange"] { background: #f97316; }
-.colorOption[data-color="yellow"] { background: #eab308; }
-.colorOption[data-color="green"] { background: #22c55e; }
-.colorOption[data-color="blue"] { background: #3b82f6; }
-.colorOption[data-color="purple"] { background: #a855f7; }
-.colorOption[data-color="pink"] { background: #ec4899; }
+.colorOption[data-color='default'] {
+  background: var(--color-surface-hover);
+}
+.colorOption[data-color='red'] {
+  background: #ef4444;
+}
+.colorOption[data-color='orange'] {
+  background: #f97316;
+}
+.colorOption[data-color='yellow'] {
+  background: #eab308;
+}
+.colorOption[data-color='green'] {
+  background: #22c55e;
+}
+.colorOption[data-color='blue'] {
+  background: #3b82f6;
+}
+.colorOption[data-color='purple'] {
+  background: #a855f7;
+}
+.colorOption[data-color='pink'] {
+  background: #ec4899;
+}
 
 .footer {
   display: flex;
@@ -207,11 +223,12 @@
   .metaSection {
     grid-template-columns: 1fr;
   }
-  
-  .header, .footer {
+
+  .header,
+  .footer {
     padding: var(--spacing-3);
   }
-  
+
   .form {
     padding: var(--spacing-3);
   }

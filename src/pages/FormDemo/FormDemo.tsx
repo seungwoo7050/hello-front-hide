@@ -1,13 +1,23 @@
-import { Button, Input, Form, FormGroup, FormActions, Textarea, Select, Checkbox, useToast } from '../../components/ui';
-import { useForm, validators } from '../../hooks';
-import styles from './FormDemo.module.css';
+import {
+  Button,
+  Input,
+  Form,
+  FormGroup,
+  FormActions,
+  Textarea,
+  Select,
+  Checkbox,
+  useToast,
+} from '../../components/ui'
+import { useForm, validators } from '../../hooks'
+import styles from './FormDemo.module.css'
 
 interface ContactFormValues {
-  name: string;
-  email: string;
-  category: string;
-  message: string;
-  subscribe: boolean;
+  name: string
+  email: string
+  category: string
+  message: string
+  subscribe: boolean
 }
 
 const categoryOptions = [
@@ -15,10 +25,10 @@ const categoryOptions = [
   { value: 'support', label: '기술 지원' },
   { value: 'feedback', label: '피드백' },
   { value: 'partnership', label: '제휴 문의' },
-];
+]
 
 export function FormDemo() {
-  const { success, error, warning, info } = useToast();
+  const { success, error, warning, info } = useToast()
 
   const form = useForm<ContactFormValues>({
     initialValues: {
@@ -46,38 +56,41 @@ export function FormDemo() {
     },
     onSubmit: async (values) => {
       // 제출 시뮬레이션
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log('Form submitted:', values);
-      success('폼이 성공적으로 제출되었습니다!', { title: '제출 완료' });
-      form.resetForm();
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      console.log('Form submitted:', values)
+      success('폼이 성공적으로 제출되었습니다!', { title: '제출 완료' })
+      form.resetForm()
     },
     validateOnBlur: true,
-  });
+  })
 
   const handleToastDemo = (type: 'success' | 'error' | 'warning' | 'info') => {
     const messages = {
       success: { message: '작업이 성공적으로 완료되었습니다.', title: '성공' },
-      error: { message: '오류가 발생했습니다. 다시 시도해주세요.', title: '오류' },
+      error: {
+        message: '오류가 발생했습니다. 다시 시도해주세요.',
+        title: '오류',
+      },
       warning: { message: '주의가 필요한 항목이 있습니다.', title: '경고' },
       info: { message: '새로운 업데이트가 있습니다.', title: '알림' },
-    };
+    }
 
-    const { message: msg, title } = messages[type];
+    const { message: msg, title } = messages[type]
     switch (type) {
       case 'success':
-        success(msg, { title });
-        break;
+        success(msg, { title })
+        break
       case 'error':
-        error(msg, { title });
-        break;
+        error(msg, { title })
+        break
       case 'warning':
-        warning(msg, { title });
-        break;
+        warning(msg, { title })
+        break
       case 'info':
-        info(msg, { title });
-        break;
+        info(msg, { title })
+        break
     }
-  };
+  }
 
   return (
     <div className={styles.formDemo}>
@@ -185,7 +198,7 @@ export function FormDemo() {
         </div>
       </section>
     </div>
-  );
+  )
 }
 
-export default FormDemo;
+export default FormDemo

@@ -15,7 +15,7 @@ Object.defineProperty(window, 'matchMedia', {
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn(),
   })),
-});
+})
 
 // MSW 서버 설정
 beforeAll(() => server.listen({ onUnhandledRequest: 'bypass' }))

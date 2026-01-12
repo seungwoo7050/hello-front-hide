@@ -1,26 +1,26 @@
-import { NavLink } from 'react-router-dom';
-import styles from './Sidebar.module.css';
+import { NavLink } from 'react-router-dom'
+import styles from './Sidebar.module.css'
 
 interface NavItem {
-  path: string;
-  label: string;
-  icon?: React.ReactNode;
+  path: string
+  label: string
+  icon?: React.ReactNode
 }
 
 interface NavSection {
-  title?: string;
-  items: NavItem[];
+  title?: string
+  items: NavItem[]
 }
 
 interface SidebarProps {
   /** 사이드바 열림 상태 */
-  isOpen: boolean;
+  isOpen: boolean
   /** 사이드바 닫기 핸들러 */
-  onClose: () => void;
+  onClose: () => void
   /** 네비게이션 섹션들 */
-  sections?: NavSection[];
+  sections?: NavSection[]
   /** 사이드바 축소 모드 (데스크탑) */
-  isCollapsed?: boolean;
+  isCollapsed?: boolean
 }
 
 const defaultSections: NavSection[] = [
@@ -82,7 +82,7 @@ const defaultSections: NavSection[] = [
       },
     ],
   },
-];
+]
 
 export function Sidebar({
   isOpen,
@@ -96,20 +96,16 @@ export function Sidebar({
     isCollapsed && styles.sidebarCollapsed,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 
   const overlayClasses = [styles.overlay, isOpen && styles.overlayVisible]
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 
   return (
     <>
       {/* 오버레이 (모바일) */}
-      <div
-        className={overlayClasses}
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      <div className={overlayClasses} onClick={onClose} aria-hidden="true" />
 
       {/* 사이드바 */}
       <aside
@@ -147,7 +143,7 @@ export function Sidebar({
         </div>
       </aside>
     </>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

@@ -1,8 +1,15 @@
-import { type InputHTMLAttributes, forwardRef, type ReactNode, useId } from 'react'
+import {
+  type InputHTMLAttributes,
+  forwardRef,
+  type ReactNode,
+  useId,
+} from 'react'
 import styles from './Input.module.css'
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface InputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'size'
+> {
   /** 라벨 텍스트 */
   label?: string
   /** 에러 메시지 */
@@ -22,16 +29,7 @@ export interface InputProps
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    {
-      label,
-      error,
-      helperText,
-      leftIcon,
-      rightIcon,
-      className,
-      id,
-      ...props
-    },
+    { label, error, helperText, leftIcon, rightIcon, className, id, ...props },
     ref
   ) => {
     // React 18+ useId 훅으로 안정적인 id 생성

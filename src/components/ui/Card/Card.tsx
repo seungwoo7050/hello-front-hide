@@ -72,7 +72,12 @@ export interface CardHeaderProps {
   className?: string
 }
 
-export function CardHeader({ title, subtitle, action, className }: CardHeaderProps) {
+export function CardHeader({
+  title,
+  subtitle,
+  action,
+  className,
+}: CardHeaderProps) {
   return (
     <div className={`${styles.header} ${className || ''}`}>
       <div>

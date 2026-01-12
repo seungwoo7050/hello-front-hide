@@ -1,107 +1,113 @@
 /**
  * 회원가입 페이지
  */
-import { useState, type FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router';
-import { useAuth } from '../../features/auth';
-import styles from './Register.module.css';
+import { useState, type FormEvent } from 'react'
+import { Link, useNavigate } from 'react-router'
+import { useAuth } from '../../features/auth'
+import styles from './Register.module.css'
 
 interface FormData {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
 }
 
 interface FormErrors {
-  name?: string;
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
+  name?: string
+  email?: string
+  password?: string
+  confirmPassword?: string
 }
 
 function validateForm(data: FormData): FormErrors {
-  const errors: FormErrors = {};
+  const errors: FormErrors = {}
 
   if (!data.name) {
-    errors.name = '이름을 입력해주세요.';
+    errors.name = '이름을 입력해주세요.'
   } else if (data.name.length < 2) {
-    errors.name = '이름은 2자 이상이어야 합니다.';
+    errors.name = '이름은 2자 이상이어야 합니다.'
   }
 
   if (!data.email) {
-    errors.email = '이메일을 입력해주세요.';
+    errors.email = '이메일을 입력해주세요.'
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = '올바른 이메일 형식이 아닙니다.';
+    errors.email = '올바른 이메일 형식이 아닙니다.'
   }
 
   if (!data.password) {
-    errors.password = '비밀번호를 입력해주세요.';
+    errors.password = '비밀번호를 입력해주세요.'
   } else if (data.password.length < 6) {
-    errors.password = '비밀번호는 6자 이상이어야 합니다.';
+    errors.password = '비밀번호는 6자 이상이어야 합니다.'
   }
 
   if (!data.confirmPassword) {
-    errors.confirmPassword = '비밀번호 확인을 입력해주세요.';
+    errors.confirmPassword = '비밀번호 확인을 입력해주세요.'
   } else if (data.password !== data.confirmPassword) {
-    errors.confirmPassword = '비밀번호가 일치하지 않습니다.';
+    errors.confirmPassword = '비밀번호가 일치하지 않습니다.'
   }
 
-  return errors;
+  return errors
 }
 
 export function Register() {
-  const navigate = useNavigate();
-  const { register, status, error, clearError } = useAuth();
+  const navigate = useNavigate()
+  const { register, status, error, clearError } = useAuth()
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
-  });
-  const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  })
+  const [formErrors, setFormErrors] = useState<FormErrors>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
 
-  const handleChange = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-    if (error) clearError();
+  const handleChange =
+    (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }))
+      if (error) clearError()
 
-    // 실시간 유효성 검증
-    if (touched[field]) {
-      const errors = validateForm({ ...formData, [field]: e.target.value });
-      setFormErrors((prev) => ({ ...prev, [field]: errors[field] }));
+      // 실시간 유효성 검증
+      if (touched[field]) {
+        const errors = validateForm({ ...formData, [field]: e.target.value })
+        setFormErrors((prev) => ({ ...prev, [field]: errors[field] }))
+      }
     }
-  };
 
   const handleBlur = (field: keyof FormData) => () => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-    const errors = validateForm(formData);
-    setFormErrors((prev) => ({ ...prev, [field]: errors[field] }));
-  };
+    setTouched((prev) => ({ ...prev, [field]: true }))
+    const errors = validateForm(formData)
+    setFormErrors((prev) => ({ ...prev, [field]: errors[field] }))
+  }
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const errors = validateForm(formData);
-    setFormErrors(errors);
-    setTouched({ name: true, email: true, password: true, confirmPassword: true });
+    const errors = validateForm(formData)
+    setFormErrors(errors)
+    setTouched({
+      name: true,
+      email: true,
+      password: true,
+      confirmPassword: true,
+    })
 
     if (Object.keys(errors).length > 0) {
-      return;
+      return
     }
 
     const success = await register({
       name: formData.name,
       email: formData.email,
       password: formData.password,
-    });
+    })
     if (success) {
-      navigate('/notes', { replace: true });
+      navigate('/notes', { replace: true })
     }
-  };
+  }
 
-  const isLoading = status === 'loading';
+  const isLoading = status === 'loading'
 
   return (
     <div className={styles.registerPage}>
@@ -190,11 +196,17 @@ export function Register() {
               autoComplete="new-password"
             />
             {formErrors.confirmPassword && touched.confirmPassword && (
-              <span className={styles.fieldError}>{formErrors.confirmPassword}</span>
+              <span className={styles.fieldError}>
+                {formErrors.confirmPassword}
+              </span>
             )}
           </div>
 
-          <button type="submit" className={styles.submitButton} disabled={isLoading}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={isLoading}
+          >
             {isLoading ? '가입 중...' : '회원가입'}
           </button>
         </form>
@@ -207,5 +219,5 @@ export function Register() {
         </footer>
       </div>
     </div>
-  );
+  )
 }

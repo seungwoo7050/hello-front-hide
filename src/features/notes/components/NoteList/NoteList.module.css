@@ -149,14 +149,15 @@
 
 /* 반응형 */
 @media (max-width: 767px) {
-  .header, .toolbar {
+  .header,
+  .toolbar {
     padding: var(--spacing-3);
   }
-  
+
   .filters {
     flex-direction: column;
   }
-  
+
   .filterSelect {
     width: 100%;
   }

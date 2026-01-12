@@ -70,15 +70,15 @@
   transition: var(--transition-fast);
 }
 
-.menuButton[aria-expanded="true"] .menuIcon span:first-child {
+.menuButton[aria-expanded='true'] .menuIcon span:first-child {
   transform: translateY(6px) rotate(45deg);
 }
 
-.menuButton[aria-expanded="true"] .menuIcon span:nth-child(2) {
+.menuButton[aria-expanded='true'] .menuIcon span:nth-child(2) {
   opacity: 0;
 }
 
-.menuButton[aria-expanded="true"] .menuIcon span:last-child {
+.menuButton[aria-expanded='true'] .menuIcon span:last-child {
   transform: translateY(-6px) rotate(-45deg);
 }
 
@@ -95,7 +95,11 @@
 .logoIcon {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-dark)
+  );
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;

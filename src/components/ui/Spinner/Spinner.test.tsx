@@ -70,7 +70,10 @@ describe('Spinner 컴포넌트', () => {
 
     it('기본 aria-label이 설정되어야 한다', () => {
       render(<Spinner />)
-      expect(screen.getByRole('status')).toHaveAttribute('aria-label', '로딩 중')
+      expect(screen.getByRole('status')).toHaveAttribute(
+        'aria-label',
+        '로딩 중'
+      )
     })
   })
 })

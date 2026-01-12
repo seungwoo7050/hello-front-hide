@@ -1,14 +1,14 @@
-import { memo, useCallback } from 'react';
-import type { Note, NoteColor } from '../../types';
-import { summarizeText, formatRelativeTime } from '../../utils';
-import styles from './NoteCard.module.css';
+import { memo, useCallback } from 'react'
+import type { Note, NoteColor } from '../../types'
+import { summarizeText, formatRelativeTime } from '../../utils'
+import styles from './NoteCard.module.css'
 
 interface NoteCardProps {
-  note: Note;
-  isSelected?: boolean;
-  onSelect?: (note: Note) => void;
-  onDelete?: (id: string) => void;
-  onTogglePin?: (id: string) => void;
+  note: Note
+  isSelected?: boolean
+  onSelect?: (note: Note) => void
+  onDelete?: (id: string) => void
+  onTogglePin?: (id: string) => void
 }
 
 const colorClasses: Record<NoteColor, string> = {
@@ -20,7 +20,7 @@ const colorClasses: Record<NoteColor, string> = {
   blue: styles.colorBlue,
   purple: styles.colorPurple,
   pink: styles.colorPink,
-};
+}
 
 /**
  * NoteCard 내부 컴포넌트
@@ -34,18 +34,24 @@ function NoteCardBase({
   onTogglePin,
 }: NoteCardProps) {
   const handleClick = useCallback(() => {
-    onSelect?.(note);
-  }, [note, onSelect]);
+    onSelect?.(note)
+  }, [note, onSelect])
 
-  const handleDelete = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    onDelete?.(note.id);
-  }, [note.id, onDelete]);
+  const handleDelete = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      onDelete?.(note.id)
+    },
+    [note.id, onDelete]
+  )
 
-  const handleTogglePin = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    onTogglePin?.(note.id);
-  }, [note.id, onTogglePin]);
+  const handleTogglePin = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      onTogglePin?.(note.id)
+    },
+    [note.id, onTogglePin]
+  )
 
   const cardClasses = [
     styles.noteCard,
@@ -53,7 +59,7 @@ function NoteCardBase({
     isSelected && styles.selected,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 
   return (
     <article
@@ -64,8 +70,8 @@ function NoteCardBase({
       aria-selected={isSelected}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleClick();
+          e.preventDefault()
+          handleClick()
         }
       }}
     >
@@ -127,7 +133,7 @@ function NoteCardBase({
           )}
           <span>{formatRelativeTime(note.updatedAt)}</span>
         </div>
-        
+
         {note.tags.length > 0 && (
           <div className={styles.tags}>
             {note.tags.slice(0, 3).map((tag) => (
@@ -142,7 +148,7 @@ function NoteCardBase({
         )}
       </footer>
     </article>
-  );
+  )
 }
 
 /**
@@ -162,7 +168,7 @@ export const NoteCard = memo(NoteCardBase, (prevProps, nextProps) => {
     prevProps.onSelect === nextProps.onSelect &&
     prevProps.onDelete === nextProps.onDelete &&
     prevProps.onTogglePin === nextProps.onTogglePin
-  );
-});
+  )
+})
 
-export default NoteCard;
+export default NoteCard

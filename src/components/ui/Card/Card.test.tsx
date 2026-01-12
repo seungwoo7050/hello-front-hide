@@ -48,7 +48,11 @@ describe('Card 컴포넌트', () => {
       const user = userEvent.setup()
       const handleClick = vi.fn()
 
-      render(<Card interactive onClick={handleClick}>클릭</Card>)
+      render(
+        <Card interactive onClick={handleClick}>
+          클릭
+        </Card>
+      )
       await user.click(screen.getByRole('button'))
 
       expect(handleClick).toHaveBeenCalledTimes(1)
@@ -56,11 +60,11 @@ describe('Card 컴포넌트', () => {
 
     it('interactive 카드는 키보드로 접근 가능해야 한다', async () => {
       const user = userEvent.setup()
-      
+
       render(<Card interactive>포커스 가능</Card>)
-      
+
       await user.tab()
-      
+
       expect(screen.getByRole('button')).toHaveFocus()
     })
   })
@@ -69,7 +73,9 @@ describe('Card 컴포넌트', () => {
 describe('CardHeader 컴포넌트', () => {
   it('제목이 렌더링되어야 한다', () => {
     render(<CardHeader title="카드 제목" />)
-    expect(screen.getByRole('heading', { name: '카드 제목' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: '카드 제목' })
+    ).toBeInTheDocument()
   })
 
   it('부제목이 렌더링되어야 한다', () => {

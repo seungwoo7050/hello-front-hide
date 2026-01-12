@@ -1,14 +1,14 @@
-import { NavLink } from 'react-router-dom';
-import { ThemeToggle } from '../../ui/ThemeToggle';
-import styles from './Header.module.css';
+import { NavLink } from 'react-router-dom'
+import { ThemeToggle } from '../../ui/ThemeToggle'
+import styles from './Header.module.css'
 
 interface HeaderProps {
   /** 사이드바 열림 상태 */
-  isSidebarOpen?: boolean;
+  isSidebarOpen?: boolean
   /** 사이드바 토글 핸들러 */
-  onToggleSidebar?: () => void;
+  onToggleSidebar?: () => void
   /** 앱 이름 */
-  appName?: string;
+  appName?: string
 }
 
 const navItems = [
@@ -17,7 +17,7 @@ const navItems = [
   { path: '/playground', label: 'Playground' },
   { path: '/form-demo', label: 'Form' },
   { path: '/about', label: 'About' },
-];
+]
 
 export function Header({
   isSidebarOpen = false,
@@ -74,7 +74,7 @@ export function Header({
         </div>
       </div>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

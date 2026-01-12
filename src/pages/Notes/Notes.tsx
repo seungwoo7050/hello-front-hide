@@ -1,9 +1,9 @@
-import { useCallback } from 'react';
-import { usePersistedNotes } from '../../features/notes/usePersistedNotes';
-import { NoteList, NoteEditor } from '../../features/notes/components';
-import type { NoteFormValues } from '../../features/notes';
-import { useToast } from '../../components/ui';
-import styles from './Notes.module.css';
+import { useCallback } from 'react'
+import { usePersistedNotes } from '../../features/notes/usePersistedNotes'
+import { NoteList, NoteEditor } from '../../features/notes/components'
+import type { NoteFormValues } from '../../features/notes'
+import { useToast } from '../../components/ui'
+import styles from './Notes.module.css'
 
 export function Notes() {
   const {
@@ -24,52 +24,60 @@ export function Notes() {
     selectNote,
     setIsEditing,
     clearFilter,
-  } = usePersistedNotes();
+  } = usePersistedNotes()
 
-  const { success, error: showError } = useToast();
+  const { success, error: showError } = useToast()
 
   const handleCreateNote = useCallback(() => {
-    selectNote(null);
-    setIsEditing(true);
-  }, [selectNote, setIsEditing]);
+    selectNote(null)
+    setIsEditing(true)
+  }, [selectNote, setIsEditing])
 
   const handleSave = useCallback(
     (values: NoteFormValues) => {
       try {
         if (selectedNote) {
-          updateNote(selectedNote.id, values);
-          success('노트가 수정되었습니다');
+          updateNote(selectedNote.id, values)
+          success('노트가 수정되었습니다')
         } else {
-          const newNote = createNote(values);
-          selectNote(newNote);
-          success('새 노트가 생성되었습니다');
+          const newNote = createNote(values)
+          selectNote(newNote)
+          success('새 노트가 생성되었습니다')
         }
-        setIsEditing(false);
+        setIsEditing(false)
       } catch {
-        showError('저장에 실패했습니다');
+        showError('저장에 실패했습니다')
       }
     },
-    [selectedNote, updateNote, createNote, selectNote, setIsEditing, success, showError]
-  );
+    [
+      selectedNote,
+      updateNote,
+      createNote,
+      selectNote,
+      setIsEditing,
+      success,
+      showError,
+    ]
+  )
 
   const handleCancel = useCallback(() => {
-    setIsEditing(false);
+    setIsEditing(false)
     if (!selectedNote) {
-      selectNote(null);
+      selectNote(null)
     }
-  }, [selectedNote, selectNote, setIsEditing]);
+  }, [selectedNote, selectNote, setIsEditing])
 
   const handleEdit = useCallback(() => {
-    setIsEditing(true);
-  }, [setIsEditing]);
+    setIsEditing(true)
+  }, [setIsEditing])
 
   const handleDelete = useCallback(
     (id: string) => {
-      deleteNote(id);
-      success('노트가 삭제되었습니다');
+      deleteNote(id)
+      success('노트가 삭제되었습니다')
     },
     [deleteNote, success]
-  );
+  )
 
   return (
     <div className={styles.notesPage}>
@@ -116,7 +124,7 @@ export function Notes() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Notes;
+export default Notes

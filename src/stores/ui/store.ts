@@ -2,8 +2,8 @@
  * UI 스토어 (Zustand)
  * 사이드바, 모달, 로딩 등 UI 상태 관리
  */
-import { create } from 'zustand';
-import type { UIStore } from './types';
+import { create } from 'zustand'
+import type { UIStore } from './types'
 
 export const useUIStore = create<UIStore>()((set) => ({
   // 사이드바 상태
@@ -59,12 +59,12 @@ export const useUIStore = create<UIStore>()((set) => ({
     }),
 
   // 로딩 액션
-  setLoading: (loading: boolean) =>
-    set({ isLoading: loading }),
-}));
+  setLoading: (loading: boolean) => set({ isLoading: loading }),
+}))
 
 // 선택자 훅들 (성능 최적화를 위한 세분화된 구독)
-export const useSidebarOpen = () => useUIStore((state) => state.sidebar.isOpen);
-export const useSidebarCollapsed = () => useUIStore((state) => state.sidebar.isCollapsed);
-export const useModalState = () => useUIStore((state) => state.modal);
-export const useIsLoading = () => useUIStore((state) => state.isLoading);
+export const useSidebarOpen = () => useUIStore((state) => state.sidebar.isOpen)
+export const useSidebarCollapsed = () =>
+  useUIStore((state) => state.sidebar.isCollapsed)
+export const useModalState = () => useUIStore((state) => state.modal)
+export const useIsLoading = () => useUIStore((state) => state.isLoading)

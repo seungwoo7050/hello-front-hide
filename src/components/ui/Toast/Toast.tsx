@@ -1,32 +1,32 @@
-import { useEffect, useState, useCallback } from 'react';
-import styles from './Toast.module.css';
+import { useEffect, useState, useCallback } from 'react'
+import styles from './Toast.module.css'
 
-export type ToastType = 'success' | 'error' | 'warning' | 'info';
+export type ToastType = 'success' | 'error' | 'warning' | 'info'
 export type ToastPosition =
   | 'top-right'
   | 'top-left'
   | 'top-center'
   | 'bottom-right'
   | 'bottom-left'
-  | 'bottom-center';
+  | 'bottom-center'
 
 export interface ToastProps {
   /** 토스트 ID */
-  id: string;
+  id: string
   /** 토스트 유형 */
-  type?: ToastType;
+  type?: ToastType
   /** 제목 */
-  title?: string;
+  title?: string
   /** 메시지 */
-  message: string;
+  message: string
   /** 표시 위치 */
-  position?: ToastPosition;
+  position?: ToastPosition
   /** 자동 닫힘 시간 (ms), 0이면 자동 닫힘 비활성화 */
-  duration?: number;
+  duration?: number
   /** 닫기 버튼 표시 여부 */
-  closable?: boolean;
+  closable?: boolean
   /** 닫힐 때 콜백 */
-  onClose?: (id: string) => void;
+  onClose?: (id: string) => void
 }
 
 const positionMap: Record<ToastPosition, string> = {
@@ -36,7 +36,7 @@ const positionMap: Record<ToastPosition, string> = {
   'bottom-right': styles.bottomRight,
   'bottom-left': styles.bottomLeft,
   'bottom-center': styles.bottomCenter,
-};
+}
 
 const icons: Record<ToastType, React.ReactNode> = {
   success: (
@@ -66,7 +66,7 @@ const icons: Record<ToastType, React.ReactNode> = {
       <line x1="12" y1="8" x2="12.01" y2="8" />
     </svg>
   ),
-};
+}
 
 export function Toast({
   id,
@@ -78,21 +78,21 @@ export function Toast({
   closable = true,
   onClose,
 }: ToastProps) {
-  const [isExiting, setIsExiting] = useState(false);
+  const [isExiting, setIsExiting] = useState(false)
 
   const handleClose = useCallback(() => {
-    setIsExiting(true);
+    setIsExiting(true)
     setTimeout(() => {
-      onClose?.(id);
-    }, 200); // slideOut 애니메이션 시간
-  }, [id, onClose]);
+      onClose?.(id)
+    }, 200) // slideOut 애니메이션 시간
+  }, [id, onClose])
 
   useEffect(() => {
     if (duration > 0) {
-      const timer = setTimeout(handleClose, duration);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(handleClose, duration)
+      return () => clearTimeout(timer)
     }
-  }, [duration, handleClose]);
+  }, [duration, handleClose])
 
   const toastClasses = [
     styles.toast,
@@ -101,7 +101,7 @@ export function Toast({
     isExiting && styles.exiting,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 
   return (
     <div
@@ -140,7 +140,7 @@ export function Toast({
         </button>
       )}
     </div>
-  );
+  )
 }
 
-export default Toast;
+export default Toast

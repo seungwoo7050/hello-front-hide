@@ -2,48 +2,51 @@
  * ErrorBoundary 컴포넌트
  * React 렌더링 중 발생하는 에러를 잡아서 폴백 UI를 표시
  */
-import { Component, type ErrorInfo, type ReactNode } from 'react';
-import styles from './ErrorBoundary.module.css';
+import { Component, type ErrorInfo, type ReactNode } from 'react'
+import styles from './ErrorBoundary.module.css'
 
 export interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: ReactNode
   /** 에러 발생 시 표시할 폴백 컴포넌트 */
-  fallback?: ReactNode;
+  fallback?: ReactNode
   /** 에러 발생 시 콜백 */
-  onError?: (error: Error, errorInfo: ErrorInfo) => void;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void
   /** 에러 복구 시 재시도 버튼 표시 여부 */
-  showRetry?: boolean;
+  showRetry?: boolean
 }
 
 interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
+  hasError: boolean
+  error: Error | null
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false, error: null };
+    super(props)
+    this.state = { hasError: false, error: null }
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
+    return { hasError: true, error }
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    this.props.onError?.(error, errorInfo);
+    console.error('ErrorBoundary caught an error:', error, errorInfo)
+    this.props.onError?.(error, errorInfo)
   }
 
   handleRetry = (): void => {
-    this.setState({ hasError: false, error: null });
-  };
+    this.setState({ hasError: false, error: null })
+  }
 
   render(): ReactNode {
     if (this.state.hasError) {
       // 커스텀 폴백이 제공된 경우
       if (this.props.fallback) {
-        return this.props.fallback;
+        return this.props.fallback
       }
 
       // 기본 에러 UI
@@ -79,11 +82,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             )}
           </div>
         </div>
-      );
+      )
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary

@@ -1,21 +1,23 @@
-import type { TextareaHTMLAttributes } from 'react';
-import { useId } from 'react';
-import styles from './Textarea.module.css';
+import type { TextareaHTMLAttributes } from 'react'
+import { useId } from 'react'
+import styles from './Textarea.module.css'
 
-interface TextareaProps
-  extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id'> {
+interface TextareaProps extends Omit<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  'id'
+> {
   /** 라벨 */
-  label?: string;
+  label?: string
   /** 에러 메시지 */
-  error?: string;
+  error?: string
   /** 도움말 텍스트 */
-  helperText?: string;
+  helperText?: string
   /** 필수 입력 표시 */
-  required?: boolean;
+  required?: boolean
   /** 문자 수 표시 */
-  showCharCount?: boolean;
+  showCharCount?: boolean
   /** 최대 문자 수 */
-  maxLength?: number;
+  maxLength?: number
 }
 
 export function Textarea({
@@ -32,14 +34,15 @@ export function Textarea({
   resize = 'vertical',
   ...props
 }: TextareaProps & { resize?: 'none' | 'vertical' | 'horizontal' | 'both' }) {
-  const id = useId();
-  const errorId = `${id}-error`;
-  const helperId = `${id}-helper`;
+  const id = useId()
+  const errorId = `${id}-error`
+  const helperId = `${id}-helper`
 
   // value 또는 defaultValue에서 길이 계산
-  const displayValue = value ?? defaultValue ?? '';
-  const currentLength = typeof displayValue === 'string' ? displayValue.length : 0;
-  const isOverLimit = maxLength ? currentLength > maxLength : false;
+  const displayValue = value ?? defaultValue ?? ''
+  const currentLength =
+    typeof displayValue === 'string' ? displayValue.length : 0
+  const isOverLimit = maxLength ? currentLength > maxLength : false
 
   return (
     <div className={`${styles.wrapper} ${className ?? ''}`}>
@@ -57,8 +60,9 @@ export function Textarea({
         className={`${styles.textarea} ${error ? styles.textareaError : ''}`}
         aria-invalid={!!error}
         aria-describedby={
-          [error && errorId, helperText && helperId].filter(Boolean).join(' ') ||
-          undefined
+          [error && errorId, helperText && helperId]
+            .filter(Boolean)
+            .join(' ') || undefined
         }
         maxLength={maxLength}
         value={value}
@@ -87,7 +91,7 @@ export function Textarea({
         </span>
       )}
     </div>
-  );
+  )
 }
 
-export default Textarea;
+export default Textarea

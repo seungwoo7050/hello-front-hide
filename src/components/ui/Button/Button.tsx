@@ -17,7 +17,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 /**
  * Button 컴포넌트
- * 
+ *
  * 다양한 변형과 상태를 지원하는 기본 버튼 컴포넌트
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(

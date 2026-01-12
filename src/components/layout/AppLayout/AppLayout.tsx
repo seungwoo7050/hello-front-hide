@@ -1,19 +1,19 @@
-import { useState, useCallback } from 'react';
-import { Outlet } from 'react-router-dom';
-import { Header } from '../Header';
-import { Sidebar } from '../Sidebar';
-import { Main } from '../Main';
-import { Footer } from '../Footer';
-import { Breadcrumb } from '../Breadcrumb';
-import styles from './AppLayout.module.css';
+import { useState, useCallback } from 'react'
+import { Outlet } from 'react-router-dom'
+import { Header } from '../Header'
+import { Sidebar } from '../Sidebar'
+import { Main } from '../Main'
+import { Footer } from '../Footer'
+import { Breadcrumb } from '../Breadcrumb'
+import styles from './AppLayout.module.css'
 
 interface AppLayoutProps {
   /** 사이드바 표시 여부 */
-  showSidebar?: boolean;
+  showSidebar?: boolean
   /** 푸터 표시 여부 */
-  showFooter?: boolean;
+  showFooter?: boolean
   /** Breadcrumb 표시 여부 */
-  showBreadcrumb?: boolean;
+  showBreadcrumb?: boolean
 }
 
 export function AppLayout({
@@ -21,15 +21,15 @@ export function AppLayout({
   showFooter = true,
   showBreadcrumb = true,
 }: AppLayoutProps) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const handleToggleSidebar = useCallback(() => {
-    setIsSidebarOpen((prev) => !prev);
-  }, []);
+    setIsSidebarOpen((prev) => !prev)
+  }, [])
 
   const handleCloseSidebar = useCallback(() => {
-    setIsSidebarOpen(false);
-  }, []);
+    setIsSidebarOpen(false)
+  }, [])
 
   return (
     <div className={styles.layout}>
@@ -49,7 +49,7 @@ export function AppLayout({
 
       {showFooter && <Footer hasSidebar={showSidebar} />}
     </div>
-  );
+  )
 }
 
-export default AppLayout;
+export default AppLayout

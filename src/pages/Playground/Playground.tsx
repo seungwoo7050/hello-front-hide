@@ -108,30 +108,30 @@ export function Playground() {
 
         <div className={styles.grid}>
           <Card variant="outlined" className={styles.cardDemo}>
-            <CardHeader
-              title="Outlined 카드"
-              subtitle="기본 테두리 스타일"
-            />
+            <CardHeader title="Outlined 카드" subtitle="기본 테두리 스타일" />
             <CardBody>
-              <p>카드의 본문 내용이 들어갑니다. 다양한 콘텐츠를 담을 수 있습니다.</p>
+              <p>
+                카드의 본문 내용이 들어갑니다. 다양한 콘텐츠를 담을 수 있습니다.
+              </p>
             </CardBody>
             <CardFooter>
-              <Button size="small" variant="ghost">더 보기</Button>
+              <Button size="small" variant="ghost">
+                더 보기
+              </Button>
             </CardFooter>
           </Card>
 
           <Card variant="elevated" className={styles.cardDemo}>
-            <CardHeader
-              title="Elevated 카드"
-              subtitle="그림자가 있는 스타일"
-            />
+            <CardHeader title="Elevated 카드" subtitle="그림자가 있는 스타일" />
             <CardBody>
               <p>elevated 변형은 카드가 떠 있는 것처럼 보이게 합니다.</p>
             </CardBody>
             <CardFooter>
               <div className={styles.row}>
                 <Button size="small">확인</Button>
-                <Button size="small" variant="ghost">취소</Button>
+                <Button size="small" variant="ghost">
+                  취소
+                </Button>
               </div>
             </CardFooter>
           </Card>
@@ -173,9 +173,15 @@ export function Playground() {
         <div className={styles.subsection}>
           <h3 className={styles.subsectionTitle}>도트 포함</h3>
           <div className={styles.row}>
-            <Badge variant="success" dot>온라인</Badge>
-            <Badge variant="warning" dot>대기 중</Badge>
-            <Badge variant="error" dot>오프라인</Badge>
+            <Badge variant="success" dot>
+              온라인
+            </Badge>
+            <Badge variant="warning" dot>
+              대기 중
+            </Badge>
+            <Badge variant="error" dot>
+              오프라인
+            </Badge>
           </div>
         </div>
       </section>
@@ -198,7 +204,13 @@ export function Playground() {
           <div className={styles.row}>
             <Spinner color="primary" />
             <Spinner color="secondary" />
-            <div style={{ backgroundColor: '#333', padding: '8px', borderRadius: '4px' }}>
+            <div
+              style={{
+                backgroundColor: '#333',
+                padding: '8px',
+                borderRadius: '4px',
+              }}
+            >
               <Spinner color="white" />
             </div>
           </div>

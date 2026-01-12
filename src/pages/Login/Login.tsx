@@ -1,88 +1,91 @@
 /**
  * 로그인 페이지
  */
-import { useState, type FormEvent } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router';
-import { useAuth } from '../../features/auth';
-import styles from './Login.module.css';
+import { useState, type FormEvent } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router'
+import { useAuth } from '../../features/auth'
+import styles from './Login.module.css'
 
 interface FormData {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 interface FormErrors {
-  email?: string;
-  password?: string;
+  email?: string
+  password?: string
 }
 
 function validateForm(data: FormData): FormErrors {
-  const errors: FormErrors = {};
+  const errors: FormErrors = {}
 
   if (!data.email) {
-    errors.email = '이메일을 입력해주세요.';
+    errors.email = '이메일을 입력해주세요.'
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = '올바른 이메일 형식이 아닙니다.';
+    errors.email = '올바른 이메일 형식이 아닙니다.'
   }
 
   if (!data.password) {
-    errors.password = '비밀번호를 입력해주세요.';
+    errors.password = '비밀번호를 입력해주세요.'
   } else if (data.password.length < 6) {
-    errors.password = '비밀번호는 6자 이상이어야 합니다.';
+    errors.password = '비밀번호는 6자 이상이어야 합니다.'
   }
 
-  return errors;
+  return errors
 }
 
 export function Login() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { login, status, error, clearError } = useAuth();
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { login, status, error, clearError } = useAuth()
 
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
-  });
-  const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  })
+  const [formErrors, setFormErrors] = useState<FormErrors>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
 
-  const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/notes';
+  const from =
+    (location.state as { from?: { pathname: string } })?.from?.pathname ||
+    '/notes'
 
-  const handleChange = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-    if (error) clearError();
-    
-    // 실시간 유효성 검증
-    if (touched[field]) {
-      const errors = validateForm({ ...formData, [field]: e.target.value });
-      setFormErrors((prev) => ({ ...prev, [field]: errors[field] }));
+  const handleChange =
+    (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }))
+      if (error) clearError()
+
+      // 실시간 유효성 검증
+      if (touched[field]) {
+        const errors = validateForm({ ...formData, [field]: e.target.value })
+        setFormErrors((prev) => ({ ...prev, [field]: errors[field] }))
+      }
     }
-  };
 
   const handleBlur = (field: keyof FormData) => () => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-    const errors = validateForm(formData);
-    setFormErrors((prev) => ({ ...prev, [field]: errors[field] }));
-  };
+    setTouched((prev) => ({ ...prev, [field]: true }))
+    const errors = validateForm(formData)
+    setFormErrors((prev) => ({ ...prev, [field]: errors[field] }))
+  }
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const errors = validateForm(formData);
-    setFormErrors(errors);
-    setTouched({ email: true, password: true });
+    const errors = validateForm(formData)
+    setFormErrors(errors)
+    setTouched({ email: true, password: true })
 
     if (Object.keys(errors).length > 0) {
-      return;
+      return
     }
 
-    const success = await login(formData);
+    const success = await login(formData)
     if (success) {
-      navigate(from, { replace: true });
+      navigate(from, { replace: true })
     }
-  };
+  }
 
-  const isLoading = status === 'loading';
+  const isLoading = status === 'loading'
 
   return (
     <div className={styles.loginPage}>
@@ -135,7 +138,11 @@ export function Login() {
             )}
           </div>
 
-          <button type="submit" className={styles.submitButton} disabled={isLoading}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={isLoading}
+          >
             {isLoading ? '로그인 중...' : '로그인'}
           </button>
         </form>
@@ -148,5 +155,5 @@ export function Login() {
         </footer>
       </div>
     </div>
-  );
+  )
 }

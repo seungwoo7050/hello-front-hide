@@ -21,16 +21,16 @@
 .input {
   width: 100%;
   padding: var(--spacing-2) var(--spacing-3);
-  
+
   font-family: var(--font-family-base);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-normal);
   color: var(--color-text);
-  
+
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  
+
   transition: all var(--transition-fast);
 }
 
